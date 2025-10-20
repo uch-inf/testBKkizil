@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+
+<html lang="ru">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Автоправила — Регистрация</title>
+<link href="style.css" rel="stylesheet"/>
+</head>
+<body>
+<div class="wrapper">
+<header>
+<div class="header-bar-inner">
+<a aria-label="Автоправила" class="brand" href="index.html">
+<img alt="Логотип Автоправила" decoding="async" height="48" loading="lazy" src="logo.svg" width="48"/>
+</a>
+<div class="header-actions">
+<button class="title" id="plusTitle">Plus</button>
+<button aria-label="Переключить тему" class="theme-btn" id="themeToggle">
+<img alt="" decoding="async" height="24" id="themeIcon" loading="lazy" src="icon-sun.svg" width="24"/>
+</button>
+<div class="profile-wrap">
+<button aria-expanded="false" aria-haspopup="true" class="profile" id="profileBtn">
+<img alt="Профиль" decoding="async" loading="lazy" src="profile-tinted.svg"/>
+</button>
+<nav aria-label="Меню профиля" class="profile-menu" id="profileMenu" role="menu">
+<ul class="profile-list">
+<li><a href="profile.html">Мой профиль</a></li>
+<li><a href="settings.html">Настройки</a></li>
+<li><a href="login.html">Вход</a></li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+</header>
+<main class="page">
+<div class="container">
+<nav aria-label="Хлебные крошки" class="breadcrumbs">
+<a href="/">Главная</a> <span aria-hidden="true">/</span>
+<span aria-current="page">Регистрация</span>
+</nav>
+<h1 class="page-title">Регистрация</h1>
+<section class="auth-wrap">
+<form class="card auth-card" id="registerForm" novalidate="">
+<div class="field">
+<label for="regName">Имя</label>
+<input id="regName" placeholder="Иван" type="text"/>
+</div>
+<div class="field">
+<label for="regEmail">Email</label>
+<input autocomplete="email" id="regEmail" placeholder="you@example.com" required="" type="email"/>
+<p aria-live="polite" class="err" id="errRegEmail"></p>
+</div>
+<div class="field">
+<label for="regPassword">Пароль</label>
+<div class="password-row">
+<input autocomplete="new-password" id="regPassword" minlength="6" placeholder="Минимум 6 символов" required="" type="password"/>
+<button aria-label="Показать пароль" class="btn ghost sm pwd-toggle" id="togglePwdReg1" type="button">
+<img alt="" decoding="async" height="18" loading="lazy" src="eye.svg" width="18"/>
+</button>
+</div>
+<p aria-live="polite" class="err" id="errRegPwd"></p>
+</div>
+<div class="field">
+<label for="regPassword2">Повторите пароль</label>
+<div class="password-row">
+<input autocomplete="new-password" id="regPassword2" minlength="6" placeholder="Ещё раз пароль" required="" type="password"/>
+<button aria-label="Показать пароль" class="btn ghost sm pwd-toggle" id="togglePwdReg2" type="button">
+<img alt="" decoding="async" height="18" loading="lazy" src="eye.svg" width="18"/>
+</button>
+</div>
+<p aria-live="polite" class="err" id="errRegPwd2"></p>
+</div>
+<label class="checkbox policy">
+<input id="regAgree" type="checkbox"/>
+<span>Я принимаю условия сервиса и политику конфиденциальности</span>
+</label>
+<p aria-live="polite" class="err" id="errRegAgree"></p>
+<div class="actions-row">
+<button class="btn primary" id="btnRegister" type="submit">Зарегистрироваться</button>
+</div>
+<div class="auth-bottom">
+            Уже есть аккаунт? <a class="link" href="login.html">Войти</a>
+</div>
+</form>
+</section>
+</div>
+</main>
+<footer>© 2025 Автоправила. Все права защищены.</footer>
+</div>
+<script defer="" src="scripts.js"></script>
+</body>
+</html>

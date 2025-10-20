@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+
+<html lang="ru">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Тренировка — Автоправила</title>
+<link href="style.css" rel="stylesheet"/>
+</head>
+<body>
+<div class="wrapper">
+<!-- HEADER (как на главной) -->
+<header>
+<div class="header-bar-inner">
+<a aria-label="Автоправила" class="brand" href="index.html">
+<img alt="Логотип Автоправила" decoding="async" height="48" loading="lazy" src="logo.svg" width="48"/>
+</a>
+<div class="header-actions">
+<button class="title" id="plusTitle">Plus</button>
+<button aria-label="Переключить тему" class="theme-btn" id="themeToggle">
+<img alt="" decoding="async" height="24" id="themeIcon" loading="lazy" src="icon-sun.svg" width="24"/>
+</button>
+<div class="profile-wrap">
+<button aria-expanded="false" aria-haspopup="true" class="profile" id="profileBtn">
+<img alt="Профиль" decoding="async" loading="lazy" src="profile-tinted.svg"/>
+</button>
+<nav aria-label="Меню профиля" class="profile-menu" id="profileMenu" role="menu">
+<ul class="profile-list">
+<li><a href="profile.html" role="menuitem" tabindex="-1">Мой профиль</a></li>
+<li><a href="settings.html" role="menuitem" tabindex="-1">Настройки</a></li>
+<li><a href="login.html" role="menuitem" tabindex="-1">Выход</a></li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+</header>
+<main class="page training-page">
+<div class="container">
+<!-- Верхняя панель: слева — таймер; справа — настройки -->
+<div class="train-topbar">
+<div class="train-time">
+<span class="label">Время:</span>
+<span id="trainClock">00:00</span>
+</div>
+<button aria-label="Настройки тренировки" class="btn ghost icon-btn" id="trainSettingsBtn" title="Настройки">
+<!-- inline SVG шестерёнка — чтобы не тянуть файл -->
+<svg aria-hidden="true" fill="none" height="22" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="22">
+<circle cx="12" cy="12" r="3"></circle>
+<path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06A2 2 0 1 1 7.04 3.3l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06A2 2 0 1 1 20.7 7.04l-.06.06a1.65 1.65 0 0 0-.33 1.82V9c0 .66.39 1.26 1 1.51.16.07.33.11.5.11H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+</svg>
+</button>
+</div>
+<!-- Статистика над вопросом -->
+<div aria-live="polite" class="train-stats card">
+<div><strong>Вопрос:</strong> <span id="statIndex">1</span>/<span id="statTotal">10</span></div>
+<div><strong>Верно:</strong> <span id="statCorrect">0</span></div>
+<div><strong>Коэфф.:</strong> <span id="statRate">0/0</span></div>
+</div>
+<!-- Вопрос -->
+<section class="train-question card">
+<div class="q-media" hidden="" id="qMedia"></div>
+<h2 class="q-text" id="qText">Загрузка вопроса…</h2>
+<div aria-label="Варианты ответа" class="q-answers" id="qAnswers" role="group">
+<!-- варианты рендерятся скриптом -->
+</div>
+</section>
+<!-- Нижняя панель действий -->
+<div class="train-bottom">
+<button class="btn danger" id="btnFinish">Завершить</button>
+</div>
+</div>
+</main>
+<footer>© 2025 Автоправила. Все права защищены.</footer>
+</div>
+<!-- Модалка: Настройки тренировки -->
+<div aria-hidden="true" aria-labelledby="trainSettingsTitle" aria-modal="true" class="modal" id="trainSettingsModal" role="dialog">
+<div class="modal-content" role="document">
+<button aria-label="Закрыть" class="modal-close" id="trainSettingsClose">×</button>
+<h2 id="trainSettingsTitle">Настройки тренировки</h2>
+<div class="settings-body">
+<!-- Использовать ИИ -->
+<div class="setting row-between">
+<div class="setting-text">
+<strong>Использовать ИИ</strong>
+<span class="muted">Подсказывает сложные места и объясняет ответы</span>
+</div>
+<label class="switch" title="ИИ поможет краткими подсказками и объяснениями">
+<input checked="" id="useAiToggle" type="checkbox"/>
+<span class="slider"></span>
+</label>
+</div>
+<!-- Темы -->
+<div class="setting setting-themes">
+<div class="row-between">
+<div class="setting-text">
+<strong>Темы</strong>
+<span class="muted" id="themesSummary">Все темы</span>
+</div>
+<button aria-controls="themesDropdown" aria-expanded="false" aria-haspopup="true" class="btn ghost icon-btn" id="themesBtn" title="Выбрать темы" type="button">
+<!-- иконка фильтра -->
+<svg aria-hidden="true" fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="20">
+<polygon points="22 3 2 3 10 12 10 19 14 21 14 12 22 3"></polygon>
+</svg>
+</button>
+</div>
+<!-- Выпадающий список тем -->
+<div aria-label="Выбор тем" class="themes-dropdown" id="themesDropdown" role="menu">
+<label class="check"><input checked="" data-theme="all" type="checkbox"/> <span>Все темы</span></label>
+<div class="themes-grid">
+<label class="check"><input data-theme="Общие положения" type="checkbox"/> <span>Общие положения (25)</span></label>
+<label class="check"><input data-theme="Дорожные знаки" type="checkbox"/> <span>Дорожные знаки (127)</span></label>
+<label class="check"><input data-theme="Дорожная разметка" type="checkbox"/> <span>Дорожная разметка (38)</span></label>
+<label class="check"><input data-theme="Сигналы светофора и регулировщика" type="checkbox"/> <span>Сигналы светофора и регулировщика (42)</span></label>
+<label class="check"><input data-theme="Начало движения, маневрирование" type="checkbox"/> <span>Начало движения, маневрирование (111)</span></label>
+<label class="check"><input data-theme="Скорость движения" type="checkbox"/> <span>Скорость движения (17)</span></label>
+<label class="check"><input data-theme="Обгон, опережение, встречный разъезд" type="checkbox"/> <span>Обгон, опережение, встречный разъезд (36)</span></label>
+<label class="check"><input data-theme="Остановка и стоянка" type="checkbox"/> <span>Остановка и стоянка (43)</span></label>
+<label class="check"><input data-theme="Проезд перекрестков" type="checkbox"/> <span>Проезд перекрестков (111)</span></label>
+<label class="check"><input data-theme="Пользование внешними световыми приборами и звуковыми сигналами" type="checkbox"/> <span>Пользование внешними световыми приборами и звуковыми сигналами (23)</span></label>
+<label class="check"><input data-theme="Неисправности и условия допуска транспортных средств к эксплуатации" type="checkbox"/> <span>Неисправности и условия допуска транспортных средств к эксплуатации (26)</span></label>
+<label class="check"><input data-theme="Безопасность движения и техника управления автомобилем" type="checkbox"/> <span>Безопасность движения и техника управления автомобилем (59)</span></label>
+<label class="check"><input data-theme="Оказание доврачебной медицинской помощи" type="checkbox"/> <span>Оказание доврачебной медицинской помощи (20)</span></label>
+<label class="check"><input data-theme="Общие обязанности водителей" type="checkbox"/> <span>Общие обязанности водителей (15)</span></label>
+<label class="check"><input data-theme="Расположение транспортных средств на проезжей части" type="checkbox"/> <span>Расположение транспортных средств на проезжей части (24)</span></label>
+<label class="check"><input data-theme="Приоритет маршрутных транспортных средств" type="checkbox"/> <span>Приоритет маршрутных транспортных средств (5)</span></label>
+<label class="check"><input data-theme="Буксировка механических транспортных средств" type="checkbox"/> <span>Буксировка механических транспортных средств (8)</span></label>
+<label class="check"><input data-theme="Применение специальных сигналов" type="checkbox"/> <span>Применение специальных сигналов (8)</span></label>
+<label class="check"><input data-theme="Движение по автомагистралям" type="checkbox"/> <span>Движение по автомагистралям (13)</span></label>
+<label class="check"><input data-theme="Учебная езда и велосипедисты" type="checkbox"/> <span>Учебная езда и дополнительные требования к движению велосипедистов (4)</span></label>
+<label class="check"><input data-theme="Движение в жилых зонах" type="checkbox"/> <span>Движение в жилых зонах (7)</span></label>
+<label class="check"><input data-theme="Движение через ЖД пути" type="checkbox"/> <span>Движение через железнодорожные пути (10)</span></label>
+<label class="check"><input data-theme="Пешеходные переходы" type="checkbox"/> <span>Пешеходные переходы и места остановок маршрутных ТС (5)</span></label>
+<label class="check"><input data-theme="Перевозка людей и грузов" type="checkbox"/> <span>Перевозка людей и грузов (6)</span></label>
+<label class="check"><input data-theme="Ответственность водителя" type="checkbox"/> <span>Ответственность водителя (15)</span></label>
+<label class="check"><input data-theme="Аварийная сигнализация и знак аварийной остановки" type="checkbox"/> <span>Применение аварийной сигнализации и знака аварийной остановки (9)</span></label>
+</div>
+</div>
+</div>
+<div class="tariff-cta" style="margin-top:10px">
+<button class="btn" id="trainSettingsSave">Закрыть</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Модалка: Результаты -->
+<div aria-hidden="true" aria-labelledby="trainResultTitle" aria-modal="true" class="modal" id="trainResultModal" role="dialog">
+<div class="modal-content" role="document">
+<button aria-label="Закрыть" class="modal-close" id="trainResultClose">×</button>
+<h2 id="trainResultTitle">Статистика</h2>
+<ul class="train-result-list">
+<li><strong>Всего вопросов:</strong> <span id="resTotal">0</span></li>
+<li><strong>Правильных:</strong> <span id="resCorrect">0</span></li>
+<li><strong>Коэффициент:</strong> <span id="resRate">0/0</span></li>
+<li><strong>Время:</strong> <span id="resTime">00:00</span></li>
+</ul>
+<div class="tariff-cta" style="gap:10px">
+<a class="btn outline" href="index.html">На главную</a>
+<button class="btn primary" id="resAgain">Ещё раз</button>
+</div>
+</div>
+</div>
+<!-- Общая модалка тарифов (у тебя уже есть) -->
+<div aria-hidden="true" aria-labelledby="tariffTitle" aria-modal="true" class="modal" id="tariffModal" role="dialog">
+<div class="modal-content" role="document">
+<button aria-label="Закрыть" class="modal-close" id="modalClose">×</button>
+<h2 id="tariffTitle">Автоправила Plus</h2>
+<ul class="plus-benefits">
+<li>✓ Полный доступ к базе знаков и комментариям</li>
+<li>✓ Расширенные разборы спорных ситуаций</li>
+<li>✓ Тренажёр экзамена с ошибками и статистикой</li>
+<li>✓ Приоритетные ответы ассистента</li>
+<li>✓ Обновления правил без задержек</li>
+</ul>
+<div class="tariff-cards">
+<button class="tariff-card" data-plan="1m"><h3>1 месяц</h3><p class="price">500 ₽</p><span class="sub">Быстрый старт</span></button>
+<button class="tariff-card" data-plan="3m"><h3>3 месяца</h3><p class="price">1300 ₽</p><span class="sub">Экономия 200 ₽</span></button>
+<button class="tariff-card popular" data-plan="12m"><h3>12 месяцев</h3><p class="price">4800 ₽</p><span class="sub">Лучшая цена</span></button>
+</div>
+<div class="tariff-cta"><button class="pay-btn" disabled="" id="payBtn">Оплатить</button></div>
+</div>
+</div>
+<script defer="" src="scripts.js"></script>
+</body>
+</html>

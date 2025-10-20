@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Урок 4. Дорожная разметка</title>
+<link href="style.css" rel="stylesheet"/>
+</head>
+<body>
+<div class="wrapper">
+<header>
+<div class="header-bar-inner">
+<!-- слева логотип -->
+<a aria-label="Автоправила" class="brand" href="index.html">
+<img alt="Логотип Автоправила" decoding="async" height="48" loading="eager" src="logo.svg" width="48"/>
+</a>
+<!-- справа группа: Plus, тема, профиль -->
+<div class="header-actions">
+<button class="title" id="plusTitle">Plus</button>
+<button aria-label="Переключить тему" class="theme-btn" id="themeToggle">
+<img alt="" decoding="async" height="24" id="themeIcon" loading="lazy" src="icon-sun.svg" width="24"/>
+</button>
+<div class="profile-wrap">
+<button aria-expanded="false" aria-haspopup="true" class="profile" id="profileBtn">
+<img alt="Профиль" decoding="async" loading="lazy" src="profile-tinted.svg"/>
+</button>
+<nav aria-label="Меню профиля" class="profile-menu" id="profileMenu" role="menu">
+<ul class="profile-list">
+<li><a href="profile.html" role="menuitem" tabindex="-1">Мой профиль</a></li>
+<li><a href="settings.html" role="menuitem" tabindex="-1">Настройки</a></li>
+<li><a href="login.html" role="menuitem" tabindex="-1">Выход</a></li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+</header>
+<main class="container page-lesson" data-lesson-id="4" style="padding:24px var(--gap-x) 36px;">
+  <nav class="crumbs" aria-label="Хлебные крошки">
+    <a href="learning.html">Обучение</a> / <span>Урок 4. Дорожная разметка</span>
+  </nav>
+  <header class="lesson-header">
+    <h1>Урок 4. Дорожная разметка</h1>
+    <div class="lesson-nav"><span style="flex:1 1 auto"></span><a class="pill" href="learning.html">К списку</a><a class="pill" href="lesson-5.html">Урок 5 →</a></div>
+  </header>
+
+  <section class="lesson-body">
+    <article class="card">
+      <h2>Материалы урока</h2>
+      <div class="placeholder">Текст урока будет добавлен позже.</div>
+      <div class="lesson-nav bottom-nav"><span style="flex:1 1 auto"></span><a class="pill" href="learning.html">К списку</a><a class="pill" href="lesson-5.html">Урок 5 →</a></div>
+    </article>
+
+    <section class="card">
+      <h2>Тест по уроку</h2>
+      <div class="quiz" data-lesson-id="4"></div>
+      <script type="application/json" id="quiz-data-4">
+{
+  "title": "Проверьте знания по уроку 4",
+  "shuffle": true,
+  "questions": [
+    {
+      "type": "single",
+      "text": "Ключевой термин по теме урока 4 определён как:",
+      "answers": [
+        {
+          "text": "Правильное определение",
+          "correct": true
+        },
+        {
+          "text": "Неточное определение"
+        },
+        {
+          "text": "Совсем неверное определение"
+        }
+      ],
+      "explain": "Замените текст на своё пояснение."
+    },
+    {
+      "type": "multiple",
+      "text": "Отметьте все верные утверждения:",
+      "answers": [
+        {
+          "text": "Утверждение 1 верно",
+          "correct": true
+        },
+        {
+          "text": "Утверждение 2 верно",
+          "correct": true
+        },
+        {
+          "text": "Утверждение 3 неверно"
+        }
+      ],
+      "explain": "Можно несколько правильных ответов."
+    },
+    {
+      "type": "single",
+      "text": "Что запрещено правилами по теме этого урока?",
+      "answers": [
+        {
+          "text": "Разрешённое действие"
+        },
+        {
+          "text": "Запрещённое действие",
+          "correct": true
+        },
+        {
+          "text": "Нейтральное действие"
+        }
+      ],
+      "explain": "Короткое пояснение запрета."
+    }
+  ]
+}
+      </script>
+    </section>
+  </section>
+</main>
+<footer>© 2025 Автоправила. Все права защищены.</footer>
+</div>
+<script src="scripts.js" defer></script>
+</body>
+</html>

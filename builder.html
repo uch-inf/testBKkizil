@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Конструктор экзаменов — Автоправила</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<div class="wrapper">
+  <!-- HEADER (как на остальных страницах) -->
+  <header>
+    <div class="header-bar-inner">
+      <!-- слева логотип -->
+      <a aria-label="Автоправила" class="brand" href="index.html">
+        <img alt="Логотип Автоправила" decoding="async" height="48" loading="eager" src="logo.svg" width="48"/>
+      </a>
+      <!-- справа группа: Plus, тема, профиль -->
+      <div class="header-actions">
+        <button class="title" id="plusTitle">Plus</button>
+        <button aria-label="Переключить тему" class="theme-btn" id="themeToggle">
+          <img alt="" decoding="async" height="24" id="themeIcon" loading="lazy" src="icon-sun.svg" width="24"/>
+        </button>
+        <div class="profile-wrap">
+          <button aria-expanded="false" aria-haspopup="true" class="profile" id="profileBtn">
+            <img alt="Профиль" decoding="async" loading="lazy" src="profile-tinted.svg"/>
+          </button>
+          <nav aria-label="Меню профиля" class="profile-menu" id="profileMenu" role="menu">
+            <ul class="profile-list">
+              <li><a href="profile.html" role="menuitem" tabindex="-1">Мой профиль</a></li>
+              <li><a href="settings.html" role="menuitem" tabindex="-1">Настройки</a></li>
+              <li><a href="login.html" role="menuitem" tabindex="-1">Выход</a></li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- PAGE -->
+  <main class="container page-builder" style="padding:24px var(--gap-x) 36px;">
+    <div class="row-between" style="align-items:center; gap:12px; margin-bottom:16px">
+      <h1 style="margin:0">Конструктор экзаменов</h1>
+      <a class="btn outline" href="index.html">На главную</a>
+    </div>
+
+    <p class="muted" style="margin:0 0 24px">
+      Собери собственный экзамен: выбери темы, количество вопросов и лимит времени. 
+      Сохраняй экзамены, запускай их сам или делись ссылкой с друзьями. 
+      Статистика по прохождениям будет доступна по каждому созданному экзамену.
+    </p>
+
+    <!-- Карта: Параметры экзамена -->
+    <section class="card" style="padding:16px; margin-bottom:24px">
+      <h2 style="margin:0 0 12px; font-size:1.25rem">Параметры экзамена</h2>
+
+      <form id="builder-form" class="form-grid" autocomplete="off">
+        <!-- Название -->
+        <div class="form-row">
+          <label for="exam-title"><strong>Название экзамена</strong></label>
+          <input id="exam-title" name="title" type="text" placeholder="Например: «Экзамен по знакам — 20 вопросов»" required />
+        </div>
+
+        <!-- Темы (как на training.html) -->
+        <div class="form-row">
+          <label><strong>Темы</strong></label>
+
+          <div class="row-between" style="align-items:center; gap:12px">
+            <span class="muted" id="bldrThemesSummary">Все темы</span>
+            <button id="bldrThemesBtn" class="btn ghost icon-btn" type="button"
+                    aria-haspopup="true" aria-expanded="false" aria-controls="bldrThemesDropdown" title="Выбрать темы">
+              <!-- иконка фильтра -->
+              <svg aria-hidden="true" fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="20">
+                <polygon points="22 3 2 3 10 12 10 19 14 21 14 12 22 3"></polygon>
+              </svg>
+            </button>
+          </div>
+
+          <!-- Выпадающий список тем (та же структура, что в training.html) -->
+          <div class="themes-dropdown" id="bldrThemesDropdown" role="menu" aria-label="Выбор тем">
+            <label class="check"><input type="checkbox" data-theme="all" checked /> <span>Все темы</span></label>
+            <div class="themes-grid">
+              <label class="check"><input type="checkbox" data-theme="Общие положения" checked /> <span>Общие положения (25)</span></label>
+              <label class="check"><input type="checkbox" data-theme="Дорожные знаки" checked /> <span>Дорожные знаки (127)</span></label>
+              <label class="check"><input type="checkbox" data-theme="Дорожная разметка" checked /> <span>Дорожная разметка (38)</span></label>
+              <label class="check"><input type="checkbox" data-theme="Сигналы светофора и регулировщика" checked /> <span>Сигналы светофора и регулировщика (42)</span></label>
+              <label class="check"><input type="checkbox" data-theme="Начало движения, маневрирование" checked /> <span>Начало движения, маневрирование (111)</span></label>
+              <label class="check"><input type="checkbox" data-theme="Скорость движения" checked /> <span>Скорость движения (17)</span></label>
+              <label class="check"><input type="checkbox" data-theme="Обгон, опережение, встречный разъезд" checked /> <span>Обгон, опережение, встречный разъезд (36)</span></label>
+              <label class="check"><input type="checkbox" data-theme="Остановка и стоянка" checked /> <span>Остановка и стоянка (43)</span></label>
+              <label class="check"><input type="checkbox" data-theme="Проезд перекрестков" checked /> <span>Проезд перекрестков (111)</span></label>
+              <label class="check"><input type="checkbox" data-theme="Пользование внешними световыми приборами и звуковыми сигналами" checked /> <span>Пользование внешними световыми приборами и звуковыми сигналами (23)</span></label>
+              <label class="check"><input type="checkbox" data-theme="Неисправности и условия допуска транспортных средств к эксплуатации" checked /> <span>Неисправности и условия допуска транспортных средств к эксплуатации (26)</span></label>
+              <label class="check"><input type="checkbox" data-theme="Безопасность движения и техника управления автомобилем" checked /> <span>Безопасность движения и техника управления автомобилем (59)</span></label>
+              <label class="check"><input type="checkbox" data-theme="Оказание доврачебной медицинской помощи" checked /> <span>Оказание доврачебной медицинской помощи (20)</span></label>
+              <label class="check"><input type="checkbox" data-theme="Общие обязанности водителей" checked /> <span>Общие обязанности водителей (15)</span></label>
+              <label class="check"><input type="checkbox" data-theme="Расположение транспортных средств на проезжей части" checked /> <span>Расположение транспортных средств на проезжей части (24)</span></label>
+              <label class="check"><input type="checkbox" data-theme="Приоритет маршрутных транспортных средств" checked /> <span>Приоритет маршрутных транспортных средств (5)</span></label>
+              <label class="check"><input type="checkbox" data-theme="Буксировка механических транспортных средств" checked /> <span>Буксировка механических транспортных средств (8)</span></label>
+              <label class="check"><input type="checkbox" data-theme="Применение специальных сигналов" checked /> <span>Применение специальных сигналов (8)</span></label>
+              <label class="check"><input type="checkbox" data-theme="Движение по автомагистралям" checked /> <span>Движение по автомагистралям (13)</span></label>
+              <label class="check"><input type="checkbox" data-theme="Учебная езда и велосипедисты" checked /> <span>Учебная езда и дополнительные требования к движению велосипедистов (4)</span></label>
+              <label class="check"><input type="checkbox" data-theme="Движение в жилых зонах" checked /> <span>Движение в жилых зонах (7)</span></label>
+              <label class="check"><input type="checkbox" data-theme="Движение через железнодорожные пути" checked /> <span>Движение через железнодорожные пути (10)</span></label>
+              <label class="check"><input type="checkbox" data-theme="Пешеходные переходы" checked /> <span>Пешеходные переходы и места остановок маршрутных ТС (5)</span></label>
+              <label class="check"><input type="checkbox" data-theme="Перевозка людей и грузов" checked /> <span>Перевозка людей и грузов (6)</span></label>
+              <label class="check"><input type="checkbox" data-theme="Ответственность водителя" checked /> <span>Ответственность водителя (15)</span></label>
+              <label class="check"><input type="checkbox" data-theme="Аварийная сигнализация и знак аварийной остановки" checked /> <span>Применение аварийной сигнализации и знака аварийной остановки (9)</span></label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Количество вопросов -->
+        <div class="form-row">
+          <label for="exam-count"><strong>Количество вопросов</strong></label>
+          <input id="exam-count" name="count" type="number" min="1" max="200" step="1" placeholder="Например: 20" />
+        </div>
+
+        <!-- Лимит времени -->
+        <div class="form-row">
+          <label for="exam-time"><strong>Лимит времени (минуты)</strong></label>
+          <input id="exam-time" name="time" type="number" min="1" max="300" step="1" placeholder="Например: 20" />
+        </div>
+
+        <!-- Подсветка ошибок -->
+        <div class="form-row">
+          <label class="check">
+            <input id="exam-highlight" type="checkbox" />
+            <span>Подсвечивать ошибки во время прохождения</span>
+          </label>
+        </div>
+
+        <!-- Действия -->
+        <div class="row-between" style="flex-wrap:wrap; gap:10px; margin-top:8px">
+		  <div class="flex" style="gap:10px; flex-wrap:wrap">
+			<button class="btn" id="save-exam" type="button">Сохранить экзамен</button>
+			<button class="btn primary" id="run-now" type="button">Запустить сейчас</button>
+			<button class="btn" id="gen-link" type="button">Сгенерировать ссылку</button>
+		  </div>
+          <div class="flex" style="gap:8px; flex:1 1 340px">
+            <input aria-label="Ссылка на экзамен" class="input" id="share-url" readonly type="text" placeholder="Ссылка появится здесь" style="flex:1" />
+            <button class="btn" id="copy-link" type="button" title="Скопировать ссылку">Копировать</button>
+          </div>
+        </div>
+      </form>
+    </section>
+
+    <!-- Карта: Мои экзамены -->
+    <section class="card" style="padding:16px; margin-bottom:24px">
+      <h2 style="margin:0 0 12px; font-size:1.25rem">Мои экзамены</h2>
+      <div id="empty-state" class="muted" style="display:none">Пока нет сохранённых экзаменов.</div>
+      <div id="exam-list" class="exam-list" style="display:grid; gap:12px"></div>
+      <!--
+        Ожидаемая разметка элемента (рендерится скриптом позже):
+        <div class="exam-item">
+          <a class="exam-title" href="#">Название экзамена</a>
+          <div class="exam-actions">
+            <button class="btn">Начать</button>
+            <button class="btn">Ссылка</button>
+            <button class="btn">Удалить</button>
+          </div>
+        </div>
+      -->
+    </section>
+
+    <!-- Карта: Статистика по экзаменам -->
+    <section class="card" style="padding:16px">
+      <h2 style="margin:0 0 12px; font-size:1.25rem">Статистика по экзаменам</h2>
+      <p class="muted" style="margin-top:0">
+        Здесь будет статистика по прохождениям созданных тобой экзаменов: кто проходил, когда, время, процент верных ответов.
+        Ссылки открываются на <code>exam.html</code> с параметрами — реализацию записи результатов подключим позже.
+      </p>
+      <div class="table-wrap">
+        <table class="table" style="width:100%">
+          <thead>
+            <tr>
+              <th style="width:18%">Экзамен</th>
+              <th style="width:22%">Участник</th>
+              <th style="width:16%">Дата/время</th>
+              <th style="width:14%">Время прохождения</th>
+              <th style="width:14%">Верных, %</th>
+              <th style="width:16%">Источник</th>
+            </tr>
+          </thead>
+          <tbody id="stats-tbody">
+            <!-- строки статистики будут добавляться скриптом -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer>© 2025 Автоправила. Все права защищены.</footer>
+</div>
+
+<!-- Общая модалка тарифов (если нужна на странице) -->
+<div aria-hidden="true" aria-labelledby="tariffTitle" aria-modal="true" class="modal" id="tariffModal" role="dialog">
+  <div class="modal-content" role="document">
+    <button aria-label="Закрыть" class="modal-close" id="modalClose">×</button>
+    <h2 id="tariffTitle">Автоправила Plus</h2>
+    <ul class="plus-benefits">
+      <li>✓ Полный доступ к базе знаков и комментариям</li>
+      <li>✓ Расширенные разборы спорных ситуаций</li>
+      <li>✓ Тренажёр экзамена с ошибками и статистикой</li>
+      <li>✓ Приоритетные ответы ассистента</li>
+      <li>✓ Обновления правил без задержек</li>
+    </ul>
+    <div class="tariff-cards">
+      <button class="tariff-card" data-plan="1m"><h3>1 месяц</h3><p class="price">500 ₽</p><span class="sub">Быстрый старт</span></button>
+      <button class="tariff-card" data-plan="3m"><h3>3 месяца</h3><p class="price">1300 ₽</p><span class="sub">Экономия 200 ₽</span></button>
+      <button class="tariff-card popular" data-plan="12m"><h3>12 месяцев</h3><p class="price">4800 ₽</p><span class="sub">Лучшая цена</span></button>
+    </div>
+    <div class="tariff-cta"><button class="pay-btn" disabled id="payBtn">Оплатить</button></div>
+  </div>
+</div>
+
+<script src="scripts.js" defer></script>
+</body>
+</html>

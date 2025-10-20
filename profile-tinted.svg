@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="96" height="96" viewBox="0 0 96 96" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Профиль">
+  <!-- Весь цвет приходит из currentColor -->
+  <circle cx="48" cy="48" r="48" fill="currentColor" opacity="0.15"/>
+  <circle cx="48" cy="38" r="14" fill="currentColor"/>
+  <path d="M24 72c2-12 12-20 24-20s22 8 24 20H24z" fill="currentColor"/>
+</svg>

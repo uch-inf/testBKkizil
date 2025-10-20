@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+
+<html lang="ru">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Экзамен — Автоправила</title>
+<link href="style.css" rel="stylesheet"/>
+</head>
+<body>
+<div class="wrapper">
+<!-- HEADER -->
+<header>
+<div class="header-bar-inner">
+<a aria-label="Автоправила" class="brand" href="index.html">
+<img alt="Логотип Автоправила" decoding="async" height="48" loading="lazy" src="logo.svg" width="48"/>
+</a>
+<div class="header-actions">
+<button class="title" id="plusTitle">Plus</button>
+<button aria-label="Переключить тему" class="theme-btn" id="themeToggle">
+<img alt="" decoding="async" height="24" id="themeIcon" loading="lazy" src="icon-sun.svg" width="24"/>
+</button>
+<div class="profile-wrap">
+<button aria-expanded="false" aria-haspopup="true" class="profile" id="profileBtn">
+<img alt="Профиль" decoding="async" loading="lazy" src="profile-tinted.svg"/>
+</button>
+<nav aria-label="Меню профиля" class="profile-menu" id="profileMenu" role="menu">
+<ul class="profile-list">
+<li><a href="profile.html" role="menuitem" tabindex="-1">Мой профиль</a></li>
+<li><a href="settings.html" role="menuitem" tabindex="-1">Настройки</a></li>
+<li><a href="login.html" role="menuitem" tabindex="-1">Выход</a></li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+</header>
+<main class="page exam-one-page">
+<div class="container">
+<!-- ===== ЭКРАН A: ИНСТРУКЦИЯ ===== -->
+<section class="card exam-intro" id="examIntro">
+<h1 class="exam-title">ЭКЗАМЕН НА ПРАВО УПРАВЛЕНИЯ ТРАНСПОРТНЫМ СРЕДСТВОМ</h1>
+<div class="exam-meta">
+<div><span class="muted">КАТЕГОРИИ:</span> <strong>«A» / «B» / «M»</strong></div>
+<div><span class="muted">КАНДИДАТ:</span> <strong id="candidateName">ИВАНОВ ИВАН ИВАНОВИЧ</strong></div>
+</div>
+<div class="exam-intro-text">
+<p class="center"><strong>Здравствуйте!</strong></p>
+<p>
+            Вам предстоит ответить на <strong>20 вопросов</strong> за <strong>20 минут</strong>. За каждую ошибку
+            назначается блок из <strong>5 дополнительных вопросов</strong> по теме ошибки. Допустимо не более
+            <strong>2 ошибок</strong>. В дополнительных блоках ошибки недопустимы.
+          </p>
+<p><strong>Клавиши/мышь:</strong></p>
+<div class="controls-table">
+<div class="row head">
+<div></div>
+<div class="cell center"><span class="muted">Мышь</span></div>
+<div class="cell center"><span class="muted">Клавиатура</span></div>
+</div>
+<div class="row">
+<div class="cell">Выбор вопроса из перечня</div>
+<div class="cell center">Левая кнопка</div>
+<div class="cell center">Стрелки <span class="kbd">↑↓←→</span>, затем <span class="kbd">ПРОБЕЛ</span></div>
+</div>
+<div class="row">
+<div class="cell">Выбор варианта ответа</div>
+<div class="cell center">Левая кнопка</div>
+<div class="cell center">Клавишами <span class="kbd">↑↓</span></div>
+</div>
+<div class="row">
+<div class="cell">Переход к перечню</div>
+<div class="cell center"><span class="btn tiny">К перечню</span></div>
+<div class="cell center"><span class="kbd">ESC</span></div>
+</div>
+<div class="row">
+<div class="cell">Переход к следующему / предыдущему вопросу</div>
+<div class="cell center"><div class="btn tiny">К предыдущему</div><div class="btn tiny">К следующему</div></div>
+<div class="cell center">Клавишами <span class="kbd">← →</span></div>
+</div>
+</div>
+<p class="center muted small">
+            Нажмите левую кнопку мыши или клавишу <span class="kbd">ПРОБЕЛ</span>, чтобы начать.
+          </p>
+</div>
+<div class="exam-intro-actions">
+<button class="btn primary" id="startExamBtn">Начать экзамен</button>
+<a class="btn outline" href="index.html">Назад в меню</a>
+</div>
+</section>
+<!-- ===== ЭКРАН B: EXAM UI ===== -->
+<section class="exam-ui" hidden="" id="examUI">
+<!-- Линия информации -->
+<div aria-live="polite" class="exam-info-line" id="examInfoLine" role="status">
+<span class="chip"><span aria-hidden="true" class="ico ico-term"></span>Терминал 1</span>
+<span class="chip"><span aria-hidden="true" class="ico ico-user"></span><span id="examFio">ИВАНОВ ИВАН ИВАНОВИЧ</span></span>
+<span class="chip"><span aria-hidden="true" class="ico ico-dob"></span><span id="examDob">01.01.1989</span></span>
+<span class="chip"><span aria-hidden="true" class="ico ico-cat"></span>Категория: <strong>A/B/M</strong></span>
+<span class="chip time"><span aria-hidden="true" class="ico ico-time"></span>Осталось: <strong id="examRemain">20:00</strong></span>
+</div>
+<!-- Полоска прогресса (20 квадратов) -->
+<div aria-label="Прогресс по вопросам" class="exam-progress" id="examProgress"></div>
+<!-- B1: перечень вопросов (карточки) -->
+<section aria-label="Перечень вопросов" class="exam-grid" id="examGrid">
+<!-- генерится скриптом -->
+</section>
+<!-- B2: конкретный вопрос -->
+<section class="exam-view card" hidden="" id="examView">
+<div class="exam-view-header">
+<div class="badges">
+<span class="badge" id="qBadge">1</span>
+</div>
+<div class="crumb">
+<button class="btn ghost sm" id="backToGrid">К перечню</button>
+</div>
+</div>
+<div class="q-media" hidden="" id="examMedia"></div>
+<h2 class="q-text" id="examText">Загрузка…</h2>
+<div aria-label="Варианты ответа" class="q-answers" id="examAnswers" role="group"></div>
+<div class="exam-view-actions">
+<button class="btn" id="prevQ">&lt; К предыдущему</button>
+<button class="btn" id="nextQ">К следующему &gt;</button>
+</div>
+</section>
+</section>
+</div>
+</main>
+<footer>© 2025 Автоправила. Все права защищены.</footer>
+</div>
+<!-- Модалка результатов -->
+<div aria-hidden="true" aria-labelledby="examResultTitle" aria-modal="true" class="modal" id="examResultModal" role="dialog">
+<div class="modal-content" role="document">
+<button aria-label="Закрыть" class="modal-close" id="examResultClose">×</button>
+<h2 id="examResultTitle">Результат экзамена</h2>
+<div class="exam-result-brief">
+<div class="res-line"><strong id="resVerdict">Сдано ✅</strong></div>
+<div class="res-line">Правильных: <strong id="resOk">0</strong> / 20</div>
+<div class="res-line">Время: <strong id="resTime">00:00</strong></div>
+<div class="res-line">Скорость: <strong id="resSpeed">0.0</strong> вопр./мин</div>
+</div>
+<div class="tariff-cta" style="gap:10px">
+<a class="btn outline" href="index.html">На главную</a>
+<button class="btn primary" id="examAgain">Попробовать снова</button>
+<button class="btn" id="openDetailed">Посмотреть ошибки</button>
+</div>
+<div class="exam-detailed" hidden="" id="examDetailed">
+<h3>Подробный отчёт</h3>
+<div class="detail-list" id="detailList"></div>
+</div>
+</div>
+</div>
+<!-- общий проектный js -->
+<script defer="" src="scripts.js"></script>
+</body>
+</html>

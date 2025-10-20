@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+
+<html lang="ru">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Автоправила — Вход</title>
+<link href="style.css" rel="stylesheet"/>
+</head>
+<body>
+<div class="wrapper">
+<!-- HEADER -->
+<header>
+<div class="header-bar-inner">
+<a aria-label="Автоправила" class="brand" href="index.html">
+<img alt="Логотип Автоправила" decoding="async" height="48" loading="lazy" src="logo.svg" width="48"/>
+</a>
+<div class="header-actions">
+<button class="title" id="plusTitle">Plus</button>
+<button aria-label="Переключить тему" class="theme-btn" id="themeToggle">
+<img alt="" decoding="async" height="24" id="themeIcon" loading="lazy" src="icon-sun.svg" width="24"/>
+</button>
+<div class="profile-wrap">
+<button aria-expanded="false" aria-haspopup="true" class="profile" id="profileBtn">
+<img alt="Профиль" decoding="async" loading="lazy" src="profile-tinted.svg"/>
+</button>
+<nav aria-label="Меню профиля" class="profile-menu" id="profileMenu" role="menu">
+<ul class="profile-list">
+<li><a href="profile.html" role="menuitem" tabindex="-1">Мой профиль</a></li>
+<li><a href="settings.html" role="menuitem" tabindex="-1">Настройки</a></li>
+<li><a href="#" role="menuitem" tabindex="-1">Выход</a></li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+</header>
+<main class="page">
+<div class="container">
+<nav aria-label="Хлебные крошки" class="breadcrumbs">
+<a href="/">Главная</a> <span aria-hidden="true">/</span>
+<span aria-current="page">Вход</span>
+</nav>
+<h1 class="page-title">Вход</h1>
+<section class="auth-wrap">
+<form class="card auth-card" id="loginForm" novalidate="">
+<div class="field">
+<label for="loginEmail">Email</label>
+<input autocomplete="username" id="loginEmail" name="email" placeholder="you@example.com" required="" type="email"/>
+<p aria-live="polite" class="err" id="errEmail"></p>
+</div>
+<div class="field">
+<label for="loginPassword">Пароль</label>
+<div class="password-row">
+<input autocomplete="current-password" id="loginPassword" minlength="6" name="password" placeholder="••••••••" required="" type="password"/>
+<button aria-label="Показать пароль" class="btn ghost sm pwd-toggle" id="togglePwd" type="button">
+<img alt="" decoding="async" height="18" loading="lazy" src="eye.svg" width="18"/>
+</button>
+</div>
+<p aria-live="polite" class="err" id="errPwd"></p>
+</div>
+<div class="row-between">
+<label class="checkbox">
+<input id="rememberMe" type="checkbox"/>
+<span>Запомнить меня</span>
+</label>
+<a class="link" href="#" id="forgotLink">Забыли пароль?</a>
+</div>
+<div class="actions-row">
+<button class="btn primary" id="btnLogin" type="submit">Войти</button>
+</div>
+<div class="auth-bottom">
+            Нет аккаунта? <a class="link" href="register.html">Регистрация</a>
+</div>
+</form>
+</section>
+</div>
+</main>
+<!-- FOOTER -->
+<footer>© 2025 Автоправила. Все права защищены.</footer>
+</div>
+<!-- Модалка Plus общая -->
+<div aria-hidden="true" aria-labelledby="tariffTitle" aria-modal="true" class="modal" id="tariffModal" role="dialog">
+<div class="modal-content" role="document">
+<button aria-label="Закрыть" class="modal-close" id="modalClose">×</button>
+<h2 id="tariffTitle">Автоправила Plus</h2>
+<ul class="plus-benefits">
+<li>✓ Полный доступ к базе знаков и комментариям</li>
+<li>✓ Расширенные разборы спорных ситуаций</li>
+<li>✓ Тренажёр экзамена с ошибками и статистикой</li>
+<li>✓ Приоритетные ответы ассистента</li>
+<li>✓ Обновления правил без задержек</li>
+</ul>
+<div class="tariff-cards">
+<button class="tariff-card" data-plan="1m"><h3>1 месяц</h3><p class="price">500 ₽</p><span class="sub">Быстрый старт</span></button>
+<button class="tariff-card" data-plan="3m"><h3>3 месяца</h3><p class="price">1300 ₽</p><span class="sub">Экономия 200 ₽</span></button>
+<button class="tariff-card popular" data-plan="12m"><h3>12 месяцев</h3><p class="price">4800 ₽</p><span class="sub">Лучшая цена</span></button>
+</div>
+<div class="tariff-cta"><button class="pay-btn" disabled="" id="payBtn">Оплатить</button></div>
+</div>
+</div>
+<script defer="" src="scripts.js"></script>
+</body>
+</html>

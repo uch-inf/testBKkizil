@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Обучение</title>
+<link href="style.css" rel="stylesheet"/>
+</head>
+<body>
+<div class="wrapper">
+<header>
+<div class="header-bar-inner">
+<!-- слева логотип -->
+<a aria-label="Автоправила" class="brand" href="index.html">
+<img alt="Логотип Автоправила" decoding="async" height="48" loading="eager" src="logo.svg" width="48"/>
+</a>
+<!-- справа группа: Plus, тема, профиль -->
+<div class="header-actions">
+<button class="title" id="plusTitle">Plus</button>
+<button aria-label="Переключить тему" class="theme-btn" id="themeToggle">
+<img alt="" decoding="async" height="24" id="themeIcon" loading="lazy" src="icon-sun.svg" width="24"/>
+</button>
+<div class="profile-wrap">
+<button aria-expanded="false" aria-haspopup="true" class="profile" id="profileBtn">
+<img alt="Профиль" decoding="async" loading="lazy" src="profile-tinted.svg"/>
+</button>
+<nav aria-label="Меню профиля" class="profile-menu" id="profileMenu" role="menu">
+<ul class="profile-list">
+<li><a href="profile.html" role="menuitem" tabindex="-1">Мой профиль</a></li>
+<li><a href="settings.html" role="menuitem" tabindex="-1">Настройки</a></li>
+<li><a href="login.html" role="menuitem" tabindex="-1">Выход</a></li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+</header>
+<main class="container page-learning" style="padding:24px var(--gap-x) 36px;">
+  <div class="learn-hero">
+    <div>
+      <h1>Обучение</h1>
+      <p class="lead">14 уроков с теорией и тестами. Прогресс сохраняется локально на этом устройстве.</p>
+    </div>
+    <div class="learn-progress" aria-label="Прогресс по урокам">
+      <div class="label"><span>Прогресс</span><span data-progress-label>0%</span></div>
+      <div class="meter" role="meter" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+        <div class="bar"></div>
+      </div>
+    </div>
+  </div>
+
+  <section class="learn-grid" aria-label="Список уроков">
+    
+        <a class="learn-card" href="lesson-1.html" data-learn-id="1">
+          <div class="num">01</div>
+          <div class="title">Урок 1. Общие положения</div>
+          <div class="meta"><span class="check" aria-hidden="true"></span><span>Статус</span></div>
+        </a>
+
+        <a class="learn-card" href="lesson-2.html" data-learn-id="2">
+          <div class="num">02</div>
+          <div class="title">Урок 2. Обязанности участников дорожного движения</div>
+          <div class="meta"><span class="check" aria-hidden="true"></span><span>Статус</span></div>
+        </a>
+
+        <a class="learn-card" href="lesson-3.html" data-learn-id="3">
+          <div class="num">03</div>
+          <div class="title">Урок 3. Дорожные знаки</div>
+          <div class="meta"><span class="check" aria-hidden="true"></span><span>Статус</span></div>
+        </a>
+
+        <a class="learn-card" href="lesson-4.html" data-learn-id="4">
+          <div class="num">04</div>
+          <div class="title">Урок 4. Дорожная разметка</div>
+          <div class="meta"><span class="check" aria-hidden="true"></span><span>Статус</span></div>
+        </a>
+
+        <a class="learn-card" href="lesson-5.html" data-learn-id="5">
+          <div class="num">05</div>
+          <div class="title">Урок 5. Начало движения, маневрирование и расположение ТС на проезжей части</div>
+          <div class="meta"><span class="check" aria-hidden="true"></span><span>Статус</span></div>
+        </a>
+
+        <a class="learn-card" href="lesson-6.html" data-learn-id="6">
+          <div class="num">06</div>
+          <div class="title">Урок 6. Порядок движения ТС</div>
+          <div class="meta"><span class="check" aria-hidden="true"></span><span>Статус</span></div>
+        </a>
+
+        <a class="learn-card" href="lesson-7.html" data-learn-id="7">
+          <div class="num">07</div>
+          <div class="title">Урок 7. Остановка и стоянка ТС</div>
+          <div class="meta"><span class="check" aria-hidden="true"></span><span>Статус</span></div>
+        </a>
+
+        <a class="learn-card" href="lesson-8.html" data-learn-id="8">
+          <div class="num">08</div>
+          <div class="title">Урок 8. Регулирование дорожного движения</div>
+          <div class="meta"><span class="check" aria-hidden="true"></span><span>Статус</span></div>
+        </a>
+
+        <a class="learn-card" href="lesson-9.html" data-learn-id="9">
+          <div class="num">09</div>
+          <div class="title">Урок 9. Проезд перекрестков</div>
+          <div class="meta"><span class="check" aria-hidden="true"></span><span>Статус</span></div>
+        </a>
+
+        <a class="learn-card" href="lesson-10.html" data-learn-id="10">
+          <div class="num">10</div>
+          <div class="title">Урок 10. Буксировка ТС, перевозка людей и грузов, учебная езда, пользование внешними световыми и звуковыми сигналами</div>
+          <div class="meta"><span class="check" aria-hidden="true"></span><span>Статус</span></div>
+        </a>
+
+        <a class="learn-card" href="lesson-11.html" data-learn-id="11">
+          <div class="num">11</div>
+          <div class="title">Урок 11. Требования к оборудованию и техническому состоянию ТС</div>
+          <div class="meta"><span class="check" aria-hidden="true"></span><span>Статус</span></div>
+        </a>
+
+        <a class="learn-card" href="lesson-12.html" data-learn-id="12">
+          <div class="num">12</div>
+          <div class="title">Урок 12. Законодательство в сфере дорожного движения</div>
+          <div class="meta"><span class="check" aria-hidden="true"></span><span>Статус</span></div>
+        </a>
+
+        <a class="learn-card" href="lesson-13.html" data-learn-id="13">
+          <div class="num">13</div>
+          <div class="title">Урок 13. Первая помощь при ДТП</div>
+          <div class="meta"><span class="check" aria-hidden="true"></span><span>Статус</span></div>
+        </a>
+
+        <a class="learn-card" href="lesson-14.html" data-learn-id="14">
+          <div class="num">14</div>
+          <div class="title">Урок 14. Безопасность движения и техника управления ТС</div>
+          <div class="meta"><span class="check" aria-hidden="true"></span><span>Статус</span></div>
+        </a>
+  </section>
+</main>
+<footer>© 2025 Автоправила. Все права защищены.</footer>
+</div>
+<script src="scripts.js" defer></script>
+</body>
+</html>

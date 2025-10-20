@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48">
+  <!-- Фон с фирменным синим и скруглением -->
+  <rect x="2" y="2" width="44" height="44" rx="12" fill="#004F9F"/>
+  <!-- Контур для аккуратности на светлой теме -->
+  <rect x="2" y="2" width="44" height="44" rx="12" fill="none" stroke="rgba(255,255,255,0.2)"/>
+  <!-- Буквы "АП" — как placeholder -->
+  <g fill="#FFFFFF" font-family="PT Sans, Arial, sans-serif" font-weight="700" font-size="16">
+    <text x="12" y="28">А</text>
+    <text x="26" y="28">П</text>
+  </g>
+</svg>

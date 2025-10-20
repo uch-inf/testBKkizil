@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+
+<html lang="ru">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Мой профиль</title>
+<link href="style.css" rel="stylesheet"/>
+</head>
+<body>
+<div class="wrapper">
+<!-- HEADER (как на главной) -->
+<header>
+<div class="header-bar-inner">
+<a aria-label="Автоправила" class="brand" href="index.html">
+<img alt="Логотип Автоправила" decoding="async" height="48" loading="lazy" src="logo.svg" width="48"/>
+</a>
+<div class="header-actions">
+<button class="title" id="plusTitle">Plus</button>
+<button aria-label="Переключить тему" class="theme-btn" id="themeToggle">
+<img alt="" decoding="async" height="24" id="themeIcon" loading="lazy" src="icon-sun.svg" width="24"/>
+</button>
+<div class="profile-wrap">
+<button aria-expanded="false" aria-haspopup="true" class="profile" id="profileBtn">
+<img alt="Профиль" decoding="async" loading="lazy" src="profile-tinted.svg"/>
+</button>
+<nav aria-label="Меню профиля" class="profile-menu" id="profileMenu" role="menu">
+<ul class="profile-list">
+<li><a href="profile.html" role="menuitem" tabindex="-1">Мой профиль</a></li>
+<li><a href="#" role="menuitem" tabindex="-1">Настройки</a></li>
+<li><a href="#" role="menuitem" tabindex="-1">Выход</a></li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+</header>
+<main class="page">
+<div class="container">
+<nav aria-label="Хлебные крошки" class="breadcrumbs">
+<a href="/">Главная</a> <span aria-hidden="true">/</span>
+<span aria-current="page">Мой профиль</span>
+</nav>
+<h1 class="page-title">Мой профиль</h1>
+<!-- Грид страницы профиля -->
+<section class="profile-grid">
+<!-- Левая колонка -->
+<div class="col-left">
+<!-- Карточка пользователя -->
+<article class="card">
+<h2 class="card-title">Аккаунт</h2>
+<div class="identity">
+<label class="field">
+<span>Имя</span>
+<input autocomplete="name" id="fldName" placeholder="Ваше имя" type="text" value="Иван"/>
+</label>
+<div class="row-2">
+<label class="field">
+<span>Email</span>
+<input id="fldEmail" aria-readonly="true" readonly="" value="ИЗМЕНИТЬ@mail.ru" type="email"/>
+</label>
+<label class="field">
+<span>Телефон</span>
+<input id="fldPhone" inputmode="tel" placeholder="+7 999 123-45-67" type="tel"/>
+</label>
+
+</div>
+<div class="actions-row">
+<button class="btn primary" id="btnSaveProfile" type="button">Сохранить</button>
+<span aria-live="polite" class="save-hint" id="saveHint" role="status"></span>
+</div>
+</div>
+</article>
+	
+	
+	
+<!-- Настройки -->
+<article class="card">
+<h2 class="card-title">Настройки</h2>
+<div class="security-list">
+	<div class="security-item">
+		<div class="security-text">
+			<strong>Двухфакторная аутентификация</strong>
+			<span class="muted">Дополнительная защита аккаунта</span>
+		</div>
+		<label class="switch">
+			<input aria-label="Включить 2FA" id="chk2fa" type="checkbox"/>
+			<span class="slider"></span>
+		</label>
+	</div>
+	<div class="security-item">
+		<div class="security-text">
+			<strong>Выбор ассистента</strong>
+		</div>
+		<div class="setting">
+			<div class="setting-text">
+				<span class="muted">Кто помогает в интерфейсе</span>
+			</div>
+			<select id="instructorStyle">
+				<option selected="" value="anime_girl">Аниме-тян</option>
+				<!-- позже добавишь новые варианты -->
+				<!-- <option value="anime_boy">Аниме-кун</option> -->
+				<!-- <option value="classic">Классический ассистент</option> -->
+			</select>
+		</div>
+	</div>	
+</div>
+</article>
+	
+<!-- Опасная зона -->
+<article class="card danger">
+<h2 class="card-title">Удаление аккаунта</h2>
+<p class="muted">Удаление данных необратимо.</p>
+<div class="actions-row">
+<button class="btn danger" id="btnDelete" type="button">Удалить аккаунт</button>
+</div>
+</article>
+</div>
+<!-- Правая колонка -->
+<div class="col-right">
+<!-- Подписка -->
+<article class="card">
+<h2 class="card-title">Подписка Plus</h2>
+<div class="sub-status">
+<div>
+<strong>Статус:</strong> <span id="subState">Не активна</span><br/>
+<strong>Тариф:</strong> <span id="subPlan">—</span>
+</div>
+<button class="btn primary" id="btnManageSub" type="button">Оформить</button>
+</div>
+<ul class="sub-benefits">
+<li>Полный доступ к базе знаков</li>
+<li>Расширенные разборы ситуаций</li>
+<li>Статистика и ошибки в экзамене</li>
+<li>Приоритетные ответы ассистента</li>
+</ul>
+</article>
+<!-- Статистика -->
+<article class="card">
+<h2 class="card-title">Статистика</h2>
+<div class="stat-cards">
+<div class="stat">
+<div class="stat-val" id="stSolved">124</div>
+<div class="stat-caption">вопросов решено</div>
+</div>
+<div class="stat">
+<div class="stat-val" id="stCorrect">87%</div>
+<div class="stat-caption">правильных ответов</div>
+</div>
+<div class="stat">
+<div class="stat-val" id="stStreak">5</div>
+<div class="stat-caption">дней подряд</div>
+</div>
+</div>
+<div class="actions-row">
+<a class="btn ghost" href="#">Подробная статистика</a>
+</div>
+</article>
+<!-- Помощь -->
+<article class="card">
+<h2 class="card-title">Нужна помощь?</h2>
+<p class="muted">Если что-то не работает — напишите нам, мы ответим быстро.</p>
+<a class="btn outline" href="#">Связаться с поддержкой</a>
+</article>
+</div>
+</section>
+</div>
+</main>
+<!-- FOOTER (как на главной) -->
+<footer>© 2025 Автоправила. Все права защищены.</footer>
+</div>
+<!-- Модалка тарифов Plus — используется та же, что и на главной -->
+<div aria-hidden="true" aria-labelledby="tariffTitle" aria-modal="true" class="modal" id="tariffModal" role="dialog">
+<div class="modal-content" role="document">
+<button aria-label="Закрыть" class="modal-close" id="modalClose">×</button>
+<h2 id="tariffTitle">Автоправила Plus</h2>
+<ul class="plus-benefits">
+<li>✓ Полный доступ к базе знаков и комментариям</li>
+<li>✓ Расширенные разборы спорных ситуаций</li>
+<li>✓ Тренажёр экзамена с ошибками и статистикой</li>
+<li>✓ Приоритетные ответы ассистента</li>
+<li>✓ Обновления правил без задержек</li>
+</ul>
+<div class="tariff-cards">
+<button class="tariff-card" data-plan="1m">
+<h3>1 месяц</h3>
+<p class="price">500 ₽</p>
+<span class="sub">Быстрый старт</span>
+</button>
+<button class="tariff-card" data-plan="3m">
+<h3>3 месяца</h3>
+<p class="price">1300 ₽</p>
+<span class="sub">Экономия 200 ₽</span>
+</button>
+<button class="tariff-card popular" data-plan="12m">
+<h3>12 месяцев</h3>
+<p class="price">4800 ₽</p>
+<span class="sub">Лучшая цена</span>
+</button>
+</div>
+<div class="tariff-cta">
+<button class="pay-btn" disabled="" id="payBtn">Оплатить</button>
+</div>
+</div>
+</div>
+<script defer="" src="scripts.js"></script>
+<script>
+  // Небольшая инициализация для страницы профиля (без изменения твоих путей)
+  document.addEventListener('DOMContentLoaded', () => {
+    // Подсветка пункта меню профиля (если нужно)
+    const current = document.querySelector('.profile-menu a[href="profile.html"]');
+    current?.setAttribute('aria-current','page');
+  });
+</script>
+</body>
+</html>
