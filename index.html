@@ -1,155 +1,867 @@
-<!DOCTYPE html>
+// Данные о мебели — одна точка управления
+const furnitureItems = [
+  {
+    title: 'Диван угловой «Комфорт»',
+    dimensions: '240×180 см',
+    price: '42 000 ₽',
+    monthly: '6 000 ₽/мес'
+  },
+  {
+    title: 'Кровать с матрасом «Соня»',
+    dimensions: '160×200 см',
+    price: '28 000 ₽',
+    monthly: '4 000 ₽/мес'
+  },
+  {
+    title: 'Шкаф-купе «Элегант»',
+    dimensions: '200×60×240 см',
+    price: '35 000 ₽',
+    monthly: '5 000 ₽/мес'
+  },
+  {
+    title: 'Кухонный гарнитур «Модерн»',
+    dimensions: '320×60×85 см',
+    price: '65 000 ₽',
+    monthly: '9 286 ₽/мес'
+  },
+  {
+    title: 'Кресло релакс «Люкс»',
+    dimensions: '90×90×110 см',
+    price: '18 000 ₽',
+    monthly: '2 572 ₽/мес'
+  }
+];
 
+
+
+<!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1" name="viewport"/>
-<title>Главная</title>
-<link href="style.css" rel="stylesheet"/>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мебель в рассрочку - Магнитогорск</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --amber-50: #fff8f0;
+            --amber-100: #ffedcc;
+            --orange-100: #ffe0c9;
+            --orange-600: #ea580c;
+            --orange-700: #c2410c;
+            --green-100: #dcfce7;
+            --green-800: #166534;
+            --gray-50: #f9fafb;
+            --gray-300: #d1d5db;
+            --gray-400: #9ca3af;
+            --gray-600: #4b5563;
+            --gray-700: #374151;
+            --gray-800: #1f2937;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--amber-50);
+            color: var(--gray-800);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--orange-600);
+            color: white;
+            font-weight: 600;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .btn:hover {
+            background-color: var(--orange-700);
+            transform: scale(1.05);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid var(--orange-600);
+            color: var(--orange-600);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--orange-600);
+            color: white;
+            transform: scale(1.05);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--amber-100) 0%, var(--orange-100) 100%);
+            padding: 4rem 0;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        @media (min-width: 768px) {
+            .hero h1 {
+                font-size: 3.5rem;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .hero h1 {
+                font-size: 4rem;
+            }
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+            color: var(--gray-700);
+        }
+
+        .form-container {
+            background: white;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            max-width: 500px;
+            margin: 0 auto 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--gray-700);
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--gray-300);
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--orange-600);
+            box-shadow: 0 0 0 3px rgba(234, 88, 12, 0.1);
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 600;
+            color: var(--gray-700);
+        }
+
+        .contact-item a {
+            color: var(--orange-600);
+            text-decoration: none;
+        }
+
+        .contact-item a:hover {
+            text-decoration: underline;
+        }
+
+        /* Calculator Section */
+        .calculator-section {
+            padding: 4rem 0;
+            background-color: white;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            color: var(--gray-800);
+        }
+
+        .calculator {
+            background-color: var(--amber-50);
+            border-radius: 1rem;
+            padding: 2rem;
+            max-width: 500px;
+            margin: 0 auto;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        .result {
+            background-color: var(--green-100);
+            padding: 1rem;
+            border-radius: 0.5rem;
+            text-align: center;
+            margin-top: 1rem;
+        }
+
+        .result p {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--green-800);
+        }
+
+        .result small {
+            display: block;
+            font-size: 0.875rem;
+            color: var(--green-800);
+            margin-top: 0.25rem;
+        }
+
+        /* Carousel Section */
+        .carousel-section {
+            padding: 4rem 0;
+            background-color: var(--amber-50);
+        }
+
+        .carousel {
+            position: relative;
+            max-width: 1000px;
+            margin: 0 auto 2rem;
+            overflow: hidden;
+            border-radius: 1rem;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .carousel-inner {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .carousel-item {
+            min-width: 100%;
+            flex-shrink: 0;
+        }
+
+        .furniture-card {
+            background: white;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .furniture-image {
+            height: 16rem;
+            background-color: #f5f5dc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.875rem;
+            color: #333;
+        }
+
+        .furniture-info {
+            padding: 1.5rem;
+            flex-grow: 1;
+        }
+
+        .furniture-title {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+            color: var(--gray-800);
+        }
+
+        .furniture-dimensions {
+            color: var(--gray-600);
+            margin-bottom: 1rem;
+        }
+
+        .furniture-price {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 700;
+        }
+
+        .price-value {
+            font-size: 1.5rem;
+            color: var(--orange-600);
+        }
+
+        .price-monthly {
+            font-size: 0.875rem;
+            color: var(--gray-700);
+        }
+
+        .carousel-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: white;
+            border: none;
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        .carousel-nav:hover {
+            background-color: var(--gray-50);
+        }
+
+        .carousel-prev {
+            left: 1rem;
+        }
+
+        .carousel-next {
+            right: 1rem;
+        }
+
+        /* Advantages Section */
+        .advantages-section {
+            padding: 4rem 0;
+            background-color: white;
+        }
+
+        .advantages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .advantage-card {
+            display: flex;
+            gap: 1rem;
+            padding: 1.5rem;
+            background-color: var(--amber-50);
+            border-radius: 1rem;
+        }
+
+        .advantage-icon {
+            background-color: rgba(234, 88, 12, 0.1);
+            width: 3rem;
+            height: 3rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--orange-600);
+            font-size: 1.25rem;
+        }
+
+        .advantage-text {
+            font-weight: 500;
+            color: var(--gray-700);
+        }
+
+        .districts {
+            text-align: center;
+            margin-top: 2rem;
+            color: var(--gray-700);
+        }
+
+        /* Reviews Section */
+        .reviews-section {
+            padding: 4rem 0;
+            background-color: var(--amber-50);
+            text-align: center;
+        }
+
+        .reviews-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .reviews-content p {
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+            color: var(--gray-700);
+        }
+
+        .reviews-content a {
+            color: var(--orange-600);
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .reviews-content a:hover {
+            text-decoration: underline;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 4rem 0;
+            background: linear-gradient(135deg, var(--orange-600) 0%, var(--orange-700) 100%);
+            color: white;
+            text-align: center;
+        }
+
+        .cta-section h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        @media (min-width: 768px) {
+            .cta-section h2 {
+                font-size: 2.5rem;
+            }
+        }
+
+        .cta-section p {
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .cta-form {
+            background: white;
+            border-radius: 1rem;
+            padding: 2rem;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .cta-form .form-group input,
+        .cta-form .form-group textarea {
+            border-color: var(--gray-300);
+        }
+
+        .social-link {
+            color: white;
+            font-weight: 600;
+            text-decoration: none;
+            margin-top: 1rem;
+            display: inline-block;
+        }
+
+        .social-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: var(--gray-800);
+            color: var(--gray-300);
+            padding: 2rem 0;
+            text-align: center;
+        }
+
+        .footer-contact {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+        }
+
+        .footer-contact a {
+            color: var(--orange-400);
+            text-decoration: none;
+        }
+
+        .footer-contact a:hover {
+            color: var(--orange-300);
+            text-decoration: underline;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1.125rem;
+            }
+            
+            .section-title {
+                font-size: 1.75rem;
+            }
+            
+            .contact-info,
+            .footer-contact {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+        }
+
+.furniture-image {
+  height: 16rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f5f5dc;
+  overflow: hidden;
+}
+
+.furniture-image img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+    </style>
 </head>
 <body>
-	<div class="wrapper">
-	<header>
-		<div class="header-bar-inner">
-			<!-- слева логотип -->
-			<a aria-label="Автоправила" class="brand" href="index.html">
-				<img alt="Логотип Автоправила" decoding="async" height="48" loading="eager" src="logo.svg" width="48"/>
-			</a>
-			<!-- справа группа: Plus, тема, профиль -->
-			<div class="header-actions">
-				<button class="title" id="plusTitle">Plus</button>
-				<button aria-label="Переключить тему" class="theme-btn" id="themeToggle">
-					<img alt="" decoding="async" height="24" id="themeIcon" loading="lazy" src="icon-sun.svg" width="24"/>
-				</button>
-				<div class="profile-wrap">
-				  <!-- ▼▼▼ если пользователь вошёл ▼▼▼ -->
-					<!--
-				  <button aria-expanded="false" aria-haspopup="true" class="profile" id="profileBtn">
-					<img alt="Профиль" decoding="async" loading="lazy" src="profile-tinted.svg"/>
-				  </button>
-				  <nav aria-label="Меню профиля" class="profile-menu" id="profileMenu" role="menu">
-					<ul class="profile-list">
-					  <li><a href="profile.html" role="menuitem" tabindex="-1">Мой профиль</a></li>
-					  <li><a href="settings.html" role="menuitem" tabindex="-1">Настройки</a></li>
-					  <li><a href="login.html" role="menuitem" tabindex="-1">Выход</a></li>
-					</ul>
-				  </nav>-->
-				  <!-- ▲▲▲ -->
-				  <!-- ▼ если пользователь НЕ вошёл — показываем эту кнопку -->
-					<a href="login.html" class="btn login-btn" id="loginBtnHeader" aria-label="Войти">
-					  <!-- аккуратная иконка-замок -->
-					  <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none"
-						   stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-						<rect x="3" y="11" width="18" height="10" rx="2"></rect>
-						<path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-					  </svg>
-					  <span>Войти</span>
-					</a>
-					<!-- ▲ -->
-				</div>
-			</div>
-		</div>
-	</header>
-	<!-- MAIN -->
-	<main>
-	<!-- Описание сайта -->
-	<section class="intro">
-	<div class="container">
-	<p>
-	<strong>Автоправила</strong> — сервис для подготовки к экзамену ПДД и изучения правил дорожного движения.<br/>
-			  Здесь вы найдёте все знаки, штрафы, тесты и разборы ситуаций — в удобном формате и с подсказками.
-			</p>
-	</div>
-	</section>
-	<div class="container">
-	<!-- 4 кнопки -->
-	<section class="actions">
-	<a class="action-card interactive" href="training.html">
-	<span class="action-title">Тренировка</span>
-	<span class="info-icon" data-info="Свободные тренировки с вопросами"></span>
-	</a>
-	<a class="action-card interactive" href="exam.html">
-	<span class="action-title">Экзамен</span>
-	<span class="info-icon" data-info="Полный экзаменационный режим"></span>
-	</a>
-	<a class="action-card interactive" href="builder.html">
-	<span class="action-title">Конструктор</span>
-	<span class="info-icon" data-info="Соберите собственные наборы вопросов"></span>
-	</a>
-	<a class="action-card interactive" href="learning.html">
-	<span class="action-title">Обучение</span>
-	<span class="info-icon" data-info="Теория и правила дорожного движения"></span>
-	</a>
-	</section>
-	<!-- Сцена: чат слева, тян справа -->
-	<section class="stage">
-	<!-- ЧАТ (встроенный) -->
-	<div class="chat-panel" id="chatPanel">
-	<div class="chat-header">
-	<span>Чат</span>
-	<div class="chat-actions">
-	<button class="chat-clear" id="chatClear" title="Очистить">🗑</button>
-	</div>
-	</div>
-	<div class="chat-messages" id="chatMessages"></div>
-	<div class="chat-input">
-	<input id="chatInput" placeholder="Введите сообщение..." type="text"/>
-	<button id="chatSend" title="Отправить">➤</button>
-	</div>
-	</div>
-	<!-- ПРАВАЯ КОЛОНКА: квадратный бокс с тян -->
-	<div class="avatar-box">
-	<div class="anime-rect" id="animeAvatar" title="Ассистент">
-	<img alt="" class="layer base" decoding="async" loading="lazy" src="avatars/1/base.png"/>
-	<img alt="" class="layer eyes open" decoding="async" loading="lazy" src="avatars/1/eyes-open.png"/>
-	<img alt="" class="layer eyes closed" decoding="async" loading="lazy" src="avatars/1/eyes-closed.png"/>
-	<img alt="" class="layer mouth open" decoding="async" loading="lazy" src="avatars/1/mouth-open.png"/>
-	<img alt="" class="layer mouth closed" decoding="async" loading="lazy" src="avatars/1/mouth-closed.png"/>
-	</div>
-	</div>
-	</section>
-	</div>
-	</main>
-	<footer>
-            &copy; 2025 Все права защищены. | <a href="mailto:uch-inf@mail.ru">Иван Добрынин</a>
-        </footer>
-	</div>
-	<!-- Модалка тарифов Plus -->
-	<div aria-hidden="true" aria-labelledby="tariffTitle" aria-modal="true" class="modal" id="tariffModal" role="dialog">
-	<div class="modal-content" role="document">
-	<button aria-label="Закрыть" class="modal-close" id="modalClose">×</button>
-	<h2 id="tariffTitle">Автоправила Plus</h2>
-	<ul class="plus-benefits">
-	<li>✓ Полный доступ к базе знаков и комментариям</li>
-	<li>✓ Расширенные разборы спорных ситуаций</li>
-	<li>✓ Тренажёр экзамена с ошибками и статистикой</li>
-	<li>✓ Приоритетные ответы ассистента</li>
-	<li>✓ Обновления правил без задержек</li>
-	</ul>
-	<div class="tariff-cards">
-	<button class="tariff-card" data-plan="1m">
-	<h3>1 месяц</h3>
-	<p class="price">500 ₽</p>
-	<span class="sub">Быстрый старт</span>
-	</button>
-	<button class="tariff-card" data-plan="3m">
-	<h3>3 месяца</h3>
-	<p class="price">1300 ₽</p>
-	<span class="sub">Экономия 200 ₽</span>
-	</button>
-	<button class="tariff-card popular" data-plan="12m">
-	<h3>12 месяцев</h3>
-	<p class="price">4800 ₽</p>
-	<span class="sub">Лучшая цена</span>
-	</button>
-	</div>
-	<div class="tariff-cta">
-	<button class="pay-btn" disabled="" id="payBtn">Оплатить</button>
-	</div>
-	</div>
-	</div>
-	<!-- ВНИМАНИЕ: правильное имя файла скрипта -->
-	<script defer="" src="scripts.js"></script>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Мебель в рассрочку до 7 месяцев! 😍</h1>
+            <p>Без участия банка • Бесплатная доставка по районам • Скидка до 20% при полной оплате</p>
+            
+            <div class="form-container">
+                <form id="heroForm">
+                    <div class="form-group">
+                        <input type="text" id="heroName" placeholder="Ваше имя" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="tel" id="heroPhone" placeholder="+7 (___) ___-__-__" required>
+                    </div>
+                    <div class="form-group">
+                        <textarea id="heroComment" placeholder="Какую мебель ищете?" rows="2"></textarea>
+                    </div>
+                    <button type="submit" class="btn">Оставить заявку</button>
+                </form>
+            </div>
+
+            <div class="contact-info">
+                <div class="contact-item">
+                    <span>📞 8-937-486-52-37</span>
+                </div>
+                <div class="contact-item">
+                    <span>👉 <a href="https://t.me/mebel_rassrochka">@mebel_rassrochka</a></span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Calculator Section -->
+    <section class="calculator-section">
+        <div class="container">
+            <h2 class="section-title">Калькулятор рассрочки</h2>
+            <div class="calculator">
+                <div class="form-group">
+                    <label for="furnitureCost">Стоимость мебели (руб.)</label>
+                    <input type="number" id="furnitureCost" placeholder="Введите сумму">
+                </div>
+                <div class="form-group">
+                    <label for="installmentMonths">Срок рассрочки</label>
+                    <select id="installmentMonths">
+                        <option value="1">1 месяц</option>
+                        <option value="2">2 месяца</option>
+                        <option value="3">3 месяца</option>
+                        <option value="4">4 месяца</option>
+                        <option value="5">5 месяцев</option>
+                        <option value="6">6 месяцев</option>
+                        <option value="7" selected>7 месяцев</option>
+                    </select>
+                </div>
+                <div class="result">
+                    <p id="monthlyPayment">Ежемесячный платёж: 0 руб.</p>
+                    <small>Рассрочка без процентов и банков!</small>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+ <!-- Carousel Section -->
+<section class="carousel-section">
+  <div class="container">
+    <h2 class="section-title">Популярные модели</h2>
+
+    <div class="carousel">
+      <div class="carousel-inner" id="carouselInner"></div>
+      <button class="carousel-nav carousel-prev" id="prevBtn">‹</button>
+      <button class="carousel-nav carousel-next" id="nextBtn">›</button>
+    </div>
+
+    <div style="text-align: center;">
+      <a href="https://t.me/mebel_rassrochka" class="btn">Посмотреть все модели</a>
+    </div>
+  </div>
+</section>
+
+
+
+
+
+    <!-- Advantages Section -->
+    <section class="advantages-section">
+        <div class="container">
+            <h2 class="section-title">Почему выбирают нас?</h2>
+            <div class="advantages-grid">
+                <div class="advantage-card">
+                    <div class="advantage-icon">✓</div>
+                    <div class="advantage-text">Работаем без участия банка</div>
+                </div>
+                <div class="advantage-card">
+                    <div class="advantage-icon">✓</div>
+                    <div class="advantage-text">Бесплатная доставка по указанным районам</div>
+                </div>
+                <div class="advantage-card">
+                    <div class="advantage-icon">✓</div>
+                    <div class="advantage-text">Онлайн-заказ — не выходя из дома</div>
+                </div>
+                <div class="advantage-card">
+                    <div class="advantage-icon">✓</div>
+                    <div class="advantage-text">Скидка до 20% при полной оплате</div>
+                </div>
+                <div class="advantage-card">
+                    <div class="advantage-icon">✓</div>
+                    <div class="advantage-text">Огромный выбор корпусной и мягкой мебели</div>
+                </div>
+            </div>
+            <div class="districts">
+                <p>Доставка осуществляется во все районы: Агаповский, Карталинский, Кизильский, Нагайбакский, Верхнеуральский, Чесменский, Пластовский, Уйский</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reviews Section -->
+    <section class="reviews-section">
+        <div class="container">
+            <div class="reviews-content">
+                <h2 class="section-title">Отзывы наших клиентов</h2>
+                <p>Отзывы о нашей мебели — на странице 👉 <a href="https://t.me/mebel_rassrochka">@mebel_rassrochka</a></p>
+                <a href="https://t.me/mebel_rassrochka" class="btn btn-outline">Перейти к отзывам</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>Готовы выбрать мебель?</h2>
+            <p>Оставьте заявку — перезвоним в течение 10 минут!</p>
+            
+            <div class="cta-form">
+                <form id="ctaForm">
+                    <div class="form-group">
+                        <input type="text" id="ctaName" placeholder="Ваше имя" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="tel" id="ctaPhone" placeholder="+7 (___) ___-__-__" required>
+                    </div>
+                    <div class="form-group">
+                        <textarea id="ctaComment" placeholder="Какую мебель ищете?" rows="2"></textarea>
+                    </div>
+                    <button type="submit" class="btn">Отправить заявку</button>
+                </form>
+            </div>
+
+            <p class="social-link">Добавляйтесь в друзья! 👉 <a href="https://t.me/mebel_rassrochka">@mebel_rassrochka</a></p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-contact">
+                <div>📞 8-937-486-52-37</div>
+                <div>👉 <a href="https://t.me/mebel_rassrochka">@mebel_rassrochka</a></div>
+            </div>
+            <p>Доставка из г. Магнитогорск</p>
+        </div>
+    </footer>
+
+<script>
+
+const furnitureItems = [
+  {
+    title: 'Диван угловой «Комфорт»',
+    dimensions: '240×180 см',
+    price: '42 000 ₽',
+    monthly: '6 000 ₽/мес',
+    image: '1.jpg'
+  },
+  {
+    title: 'Кровать с матрасом «Соня»',
+    dimensions: '160×200 см',
+    price: '28 000 ₽',
+    monthly: '4 000 ₽/мес',
+    image: 'https://example.com/images/bed-sonya.jpg'
+  },
+  {
+    title: 'Шкаф-купе «Элегант»',
+    dimensions: '200×60×240 см',
+    price: '35 000 ₽',
+    monthly: '5 000 ₽/мес',
+    image: 'https://example.com/images/wardrobe-elegant.jpg'
+  },
+  {
+    title: 'Кухонный гарнитур «Модерн»',
+    dimensions: '320×60×85 см',
+    price: '65 000 ₽',
+    monthly: '9 286 ₽/мес',
+    image: 'https://example.com/images/kitchen-modern.jpg'
+  },
+  {
+    title: 'Кресло релакс «Люкс»',
+    dimensions: '90×90×110 см',
+    price: '18 000 ₽',
+    monthly: '2 572 ₽/мес',
+    image: 'https://example.com/images/armchair-lux.jpg'
+  },
+  {
+    title: 'Что-то ещё',
+    dimensions: '90×90×110 см',
+    price: '18 000 ₽',
+    monthly: '2 572 ₽/мес',
+    image: 'https://example.com/images/other-item.jpg'
+  }
+];
+
+  // Функция создания HTML-карточки
+function createFurnitureCard(item) {
+  return `
+    <div class="carousel-item">
+      <div class="furniture-card">
+        <div class="furniture-image">
+          <img src="${item.image}" alt="${item.title}" loading="lazy">
+        </div>
+        <div class="furniture-info">
+          <h3 class="furniture-title">${item.title}</h3>
+          <p class="furniture-dimensions">${item.dimensions}</p>
+          <div class="furniture-price">
+            <span class="price-value">${item.price}</span>
+            <span class="price-monthly">в рассрочку от ${item.monthly}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+  // Phone formatting
+  function formatPhone(input) {
+    let value = input.value.replace(/\D/g, '');
+    if (value.length > 10) value = value.substring(0, 10);
+    
+    let formatted = '+7 ';
+    if (value.length > 0) formatted += '(' + value.substring(0, 3);
+    if (value.length >= 4) formatted += ') ' + value.substring(3, 6);
+    if (value.length >= 7) formatted += '-' + value.substring(6, 8);
+    if (value.length >= 9) formatted += '-' + value.substring(8, 10);
+    
+    input.value = formatted;
+  }
+
+  // Installment calculator
+  function calculateInstallment() {
+    const cost = parseFloat(document.getElementById('furnitureCost').value) || 0;
+    const months = parseInt(document.getElementById('installmentMonths').value) || 1;
+    const monthly = Math.ceil(cost / months);
+    document.getElementById('monthlyPayment').textContent = `Ежемесячный платёж: ${monthly.toLocaleString()} руб.`;
+  }
+
+  // Form submission
+  function handleFormSubmit(event) {
+    event.preventDefault();
+    alert('Заявка отправлена! Мы перезвоним вам в течение 10 минут.');
+    event.target.reset();
+  }
+
+  // Carousel logic
+  let currentSlide = 0;
+  let totalSlides = 0;
+
+  function updateCarousel() {
+    const carouselInner = document.getElementById('carouselInner');
+    carouselInner.style.transform = `translateX(-${currentSlide * 100}%)`;
+  }
+
+  function nextSlide() {
+    currentSlide = (currentSlide + 1) % totalSlides;
+    updateCarousel();
+  }
+
+  function prevSlide() {
+    currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+    updateCarousel();
+  }
+
+  // Единый DOMContentLoaded
+  document.addEventListener('DOMContentLoaded', function () {
+    // Генерация карточек мебели
+    const carouselInner = document.getElementById('carouselInner');
+    if (carouselInner) {
+      carouselInner.innerHTML = furnitureItems.map(createFurnitureCard).join('');
+      totalSlides = furnitureItems.length; // важно: после вставки HTML
+    }
+
+    // Phone formatting
+    const phoneInputs = document.querySelectorAll('input[type="tel"]');
+    phoneInputs.forEach(input => {
+      input.addEventListener('input', function () {
+        formatPhone(this);
+      });
+    });
+
+    // Calculator
+    const costInput = document.getElementById('furnitureCost');
+    const monthsSelect = document.getElementById('installmentMonths');
+    if (costInput && monthsSelect) {
+      costInput.addEventListener('input', calculateInstallment);
+      monthsSelect.addEventListener('change', calculateInstallment);
+      calculateInstallment(); // initial
+    }
+
+    // Carousel buttons
+    const nextBtn = document.getElementById('nextBtn');
+    const prevBtn = document.getElementById('prevBtn');
+    if (nextBtn && prevBtn && totalSlides > 1) {
+      nextBtn.addEventListener('click', nextSlide);
+      prevBtn.addEventListener('click', prevSlide);
+      setInterval(nextSlide, 5000);
+    }
+
+    // Forms
+    const heroForm = document.getElementById('heroForm');
+    const ctaForm = document.getElementById('ctaForm');
+    if (heroForm) heroForm.addEventListener('submit', handleFormSubmit);
+    if (ctaForm) ctaForm.addEventListener('submit', handleFormSubmit);
+  });
+</script>
 </body>
 </html>
-
