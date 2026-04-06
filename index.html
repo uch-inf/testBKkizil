@@ -1,37 +1,445 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru">
 <head>
-<meta charset="UTF-8">
-<title>Привет мир</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>STAR</title>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <style>
+    :root {
+      --bg: #020818;
+      --bg-2: #071228;
+      --panel: #0a152c;
+      --panel-2: #0c1731;
+      --stroke: rgba(255, 255, 255, 0.08);
+      --text: #f4f7ff;
+      --muted: #7f8aa8;
+      --primary: #2f7fd7;
+      --primary-2: #2c39ff;
+      --input: #0c1730;
+      --shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+    }
 
-<script src="https://telegram.org/js/telegram-web-app.js"></script>
+    * { box-sizing: border-box; }
 
-<style>
-body {
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    height:100vh;
-    margin:0;
-    font-family:Arial;
-    background:#0f172a;
-    color:white;
-}
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Inter, Arial, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top center, rgba(35, 65, 180, 0.28), transparent 28%),
+        linear-gradient(180deg, #020716 0%, #030a19 40%, #020816 100%);
+      display: flex;
+      justify-content: center;
+    }
 
-h1 {
-    font-size:48px;
-}
-</style>
+    .phone {
+      width: 100%;
+      max-width: 420px;
+      min-height: 100vh;
+      background:
+        linear-gradient(180deg, rgba(18, 38, 94, 0.26) 0%, rgba(5, 12, 28, 0.98) 18%, rgba(2, 8, 24, 1) 100%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .phone::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
+      background-size: 100% 3px, 3px 100%;
+      opacity: 0.18;
+      pointer-events: none;
+    }
+
+    .content {
+      position: relative;
+      z-index: 1;
+      padding: 10px 10px 24px;
+    }
+
+    .top {
+      text-align: center;
+      padding-top: 6px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .logo {
+      width: 40px;
+      height: 40px;
+      margin: 0 auto 10px;
+      border-radius: 12px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.14), rgba(255,255,255,0.04));
+      border: 1px solid rgba(255,255,255,0.08);
+      display: grid;
+      place-items: center;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .logo span {
+      font-size: 22px;
+      font-weight: 800;
+      color: white;
+      opacity: 0.95;
+    }
+
+    .brand {
+      margin: 0;
+      font-size: 17px;
+      font-weight: 800;
+      letter-spacing: 0.4px;
+    }
+
+    .card {
+      margin-top: 18px;
+      border-radius: 18px;
+    }
+
+    .btn {
+      width: 100%;
+      border: 0;
+      border-radius: 10px;
+      height: 42px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .btn:hover { transform: translateY(-1px); }
+
+    .btn-telegram {
+      width: calc(100% - 68px);
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background: #51a7ea;
+      color: white;
+      box-shadow: 0 8px 18px rgba(34, 122, 194, 0.35);
+    }
+
+    .icon-circle {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      display: inline-grid;
+      place-items: center;
+      flex: 0 0 auto;
+    }
+
+    .helper {
+      text-align: center;
+      color: var(--muted);
+      font-size: 12px;
+      margin-top: 14px;
+    }
+
+    .bot-link {
+      margin-top: 8px;
+      text-align: center;
+      font-size: 14px;
+      font-weight: 600;
+      color: #dbe5ff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .mini-tg {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: white;
+      display: inline-grid;
+      place-items: center;
+    }
+
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 18px 0 14px;
+      color: var(--muted);
+      font-size: 13px;
+      justify-content: center;
+    }
+
+    .divider::before,
+    .divider::after,
+    .small-divider::before,
+    .small-divider::after {
+      content: "";
+      height: 1px;
+      flex: 1;
+      background: rgba(255,255,255,0.12);
+    }
+
+    .social-btn {
+      height: 48px;
+      background: rgba(15, 26, 50, 0.9);
+      border: 1px solid var(--stroke);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #dce6ff;
+      font-weight: 500;
+      margin-bottom: 16px;
+      cursor: pointer;
+    }
+
+    .yandex {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: #ff4b22;
+      color: white;
+      display: inline-grid;
+      place-items: center;
+      font-weight: 900;
+      font-family: Arial, sans-serif;
+      margin-right: 10px;
+      font-size: 14px;
+    }
+
+    .small-divider {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--muted);
+      font-size: 13px;
+      margin: 10px 0 14px;
+    }
+
+    .email-switch {
+      margin: 0 auto;
+      width: fit-content;
+      min-width: 116px;
+      height: 30px;
+      padding: 0 12px;
+      border-radius: 999px;
+      border: 1px solid var(--stroke);
+      background: rgba(9, 18, 37, 0.95);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      color: #d8e2ff;
+      font-size: 13px;
+      box-shadow: var(--shadow);
+    }
+
+    .tabs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+      background: rgba(12, 20, 40, 0.95);
+      border-radius: 12px;
+      padding: 4px;
+      margin-top: 16px;
+      margin-bottom: 16px;
+    }
+
+    .tab {
+      height: 34px;
+      border: 0;
+      border-radius: 9px;
+      background: transparent;
+      color: #7e89a7;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .tab.active {
+      background: linear-gradient(180deg, #2d39ff, #2432db);
+      color: white;
+      box-shadow: 0 8px 18px rgba(41, 58, 255, 0.35);
+    }
+
+    .field { margin-bottom: 14px; }
+
+    .label {
+      font-size: 14px;
+      color: #dde7ff;
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .input {
+      width: 100%;
+      height: 50px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.06);
+      background: var(--input);
+      color: white;
+      padding: 0 16px;
+      outline: none;
+      font-size: 15px;
+    }
+
+    .input::placeholder { color: #5b6788; }
+
+    .submit {
+      margin-top: 10px;
+      background: linear-gradient(180deg, #2d39ff, #2533e6);
+      color: white;
+      font-size: 16px;
+      font-weight: 700;
+      box-shadow: 0 12px 24px rgba(41, 58, 255, 0.32);
+    }
+
+    .user-box {
+      margin: 14px 0 0;
+      padding: 12px 14px;
+      border-radius: 12px;
+      background: rgba(13, 23, 48, 0.92);
+      border: 1px solid rgba(255,255,255,0.06);
+      font-size: 13px;
+      color: #cfd8f6;
+      line-height: 1.5;
+      display: none;
+    }
+
+    .notice {
+      margin-top: 14px;
+      padding: 12px 14px;
+      border-radius: 12px;
+      background: rgba(13, 23, 48, 0.92);
+      border: 1px solid rgba(255,255,255,0.06);
+      font-size: 13px;
+      color: #9fb0da;
+    }
+  </style>
 </head>
-
 <body>
+  <div class="phone">
+    <div class="content">
+      <div class="top">
+        <div class="logo"><span>✦</span></div>
+        <h1 class="brand">STAR 🚀</h1>
+      </div>
 
-<h1>Привет мир 👋</h1>
+      <div class="card">
+        <button class="btn btn-telegram" id="telegramLoginBtn">
+          <span class="icon-circle">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none">
+              <path d="M21 4.6L18 19.2c-.23 1.04-.84 1.29-1.7.8l-4.7-3.46-2.27 2.18c-.25.25-.46.46-.94.46l.34-4.83 8.8-7.95c.38-.34-.08-.53-.6-.2L6.05 13.05 1.4 11.6c-1-.32-1.02-1 .22-1.48L19.8 3.1c.84-.32 1.58.2 1.2 1.5Z" fill="white"/>
+            </svg>
+          </span>
+          Войти через Telegram
+        </button>
 
-<script>
-const tg = window.Telegram.WebApp;
-tg.expand();
-</script>
+        <div class="helper">Или откройте бота в приложении</div>
 
+        <div class="bot-link">
+          <span class="mini-tg">
+            <svg viewBox="0 0 24 24" width="11" height="11" fill="none">
+              <path d="M21 4.6L18 19.2c-.23 1.04-.84 1.29-1.7.8l-4.7-3.46-2.27 2.18c-.25.25-.46.46-.94.46l.34-4.83 8.8-7.95c.38-.34-.08-.53-.6-.2L6.05 13.05 1.4 11.6c-1-.32-1.02-1 .22-1.48L19.8 3.1c.84-.32 1.58.2 1.2 1.5Z" fill="#0b142b"/>
+            </svg>
+          </span>
+          @vpnstar
+        </div>
+
+        <div class="divider">или</div>
+
+        <button class="social-btn" type="button">
+          <span class="yandex">Я</span>
+          Yandex
+        </button>
+
+        <div class="small-divider">
+          <span class="email-switch">✉ Войти по Email ▾</span>
+        </div>
+
+        <div class="tabs">
+          <button class="tab active" type="button">Вход</button>
+          <button class="tab" type="button">Регистрация</button>
+        </div>
+
+        <div class="field">
+          <label class="label" for="email">Email</label>
+          <input class="input" id="email" type="email" placeholder="you@example.com" />
+        </div>
+
+        <div class="field">
+          <label class="label" for="password">Пароль</label>
+          <input class="input" id="password" type="password" placeholder="••••••••" />
+        </div>
+
+        <button class="btn submit" type="button" id="loginBtn">Вход</button>
+
+        <div class="user-box" id="userBox"></div>
+        <div class="notice" id="notice">Страница готова для Telegram Web App. Если открыть её внутри Telegram, будут доступны данные пользователя и кнопки Telegram.</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const tg = window.Telegram?.WebApp;
+    const loginBtn = document.getElementById('telegramLoginBtn');
+    const formBtn = document.getElementById('loginBtn');
+    const userBox = document.getElementById('userBox');
+    const notice = document.getElementById('notice');
+
+    if (tg) {
+      tg.ready();
+      tg.expand();
+      document.body.style.background = tg.themeParams.bg_color || document.body.style.background;
+
+      const user = tg.initDataUnsafe?.user;
+      if (user) {
+        userBox.style.display = 'block';
+        userBox.innerHTML = `
+          <strong>Пользователь Telegram</strong><br>
+          ID: ${user.id}<br>
+          Имя: ${user.first_name || ''} ${user.last_name || ''}<br>
+          Username: ${user.username ? '@' + user.username : 'не указан'}
+        `;
+        notice.textContent = 'Приложение открыто внутри Telegram.';
+      } else {
+        notice.textContent = 'Приложение открыто внутри Telegram, но пользовательские данные не переданы.';
+      }
+
+      tg.MainButton.setText('Отправить данные');
+      tg.MainButton.hide();
+
+      formBtn.addEventListener('click', () => {
+        const email = document.getElementById('email').value.trim();
+        const password = document.getElementById('password').value.trim();
+
+        const payload = {
+          source: 'email_login',
+          email,
+          password,
+          telegramUser: tg.initDataUnsafe?.user || null
+        };
+
+        tg.sendData(JSON.stringify(payload));
+      });
+
+      loginBtn.addEventListener('click', () => {
+        tg.HapticFeedback?.impactOccurred('light');
+        tg.showAlert('Вы уже внутри Telegram Web App. Здесь можно сразу авторизовать пользователя через данные Telegram.');
+      });
+    } else {
+      loginBtn.addEventListener('click', () => {
+        alert('Открой эту страницу внутри Telegram Web App, чтобы использовать вход через Telegram.');
+      });
+
+      formBtn.addEventListener('click', () => {
+        alert('Обычный режим браузера: тут можно подключить свой backend для email-входа.');
+      });
+    }
+  </script>
 </body>
 </html>
