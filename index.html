@@ -2,443 +2,474 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>STAR</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Личный кабинет — Telegram Mini App</title>
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
   <style>
     :root {
-      --bg: #020818;
-      --bg-2: #071228;
-      --panel: #0a152c;
-      --panel-2: #0c1731;
-      --stroke: rgba(255, 255, 255, 0.08);
-      --text: #f4f7ff;
-      --muted: #7f8aa8;
-      --primary: #2f7fd7;
-      --primary-2: #2c39ff;
-      --input: #0c1730;
-      --shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+      --bg: #060918;
+      --bg2: #0a1128;
+      --card: rgba(24, 31, 64, 0.78);
+      --card-border: rgba(120, 136, 196, 0.28);
+      --line: rgba(180, 192, 255, 0.18);
+      --text: #f3f5ff;
+      --muted: rgba(233, 238, 255, 0.66);
+      --button: rgba(83, 98, 153, 0.28);
+      --button-border: rgba(132, 152, 220, 0.22);
+      --accent: #75b3ff;
+      --accent-2: #7ed0ff;
+      --shadow: 0 10px 30px rgba(0, 0, 0, 0.28);
+      --radius: 24px;
     }
 
-    * { box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
 
-    body {
+    html, body {
       margin: 0;
-      min-height: 100vh;
+      min-height: 100%;
       font-family: Inter, Arial, sans-serif;
       color: var(--text);
       background:
-        radial-gradient(circle at top center, rgba(35, 65, 180, 0.28), transparent 28%),
-        linear-gradient(180deg, #020716 0%, #030a19 40%, #020816 100%);
-      display: flex;
-      justify-content: center;
+        radial-gradient(circle at top center, rgba(72, 89, 190, 0.16), transparent 28%),
+        linear-gradient(180deg, #060816 0%, #080c1b 28%, #050813 100%);
     }
 
-    .phone {
-      width: 100%;
-      max-width: 420px;
-      min-height: 100vh;
-      background:
-        linear-gradient(180deg, rgba(18, 38, 94, 0.26) 0%, rgba(5, 12, 28, 0.98) 18%, rgba(2, 8, 24, 1) 100%);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .phone::before {
+    body::before {
       content: "";
-      position: absolute;
+      position: fixed;
       inset: 0;
-      background:
-        linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
-      background-size: 100% 3px, 3px 100%;
-      opacity: 0.18;
       pointer-events: none;
+      opacity: 0.16;
+      background:
+        linear-gradient(90deg, rgba(94, 109, 187, 0.14) 0%, transparent 12%, rgba(94, 109, 187, 0.08) 24%, transparent 36%, rgba(94, 109, 187, 0.11) 48%, transparent 60%, rgba(94, 109, 187, 0.08) 72%, transparent 84%, rgba(94, 109, 187, 0.12) 100%);
+      background-size: 160px 100%;
+      mix-blend-mode: screen;
     }
 
-    .content {
+    .app {
+      width: 100%;
+      max-width: 1000px;
+      min-height: 100vh;
+      margin: 0 auto;
+      padding: 48px 32px calc(140px + env(safe-area-inset-bottom));
       position: relative;
-      z-index: 1;
-      padding: 10px 10px 24px;
     }
 
-    .top {
+    .title {
+      margin: 18px 0 56px;
       text-align: center;
-      padding-top: 6px;
-      padding-bottom: 14px;
-      border-bottom: 1px solid rgba(255,255,255,0.08);
+      font-size: clamp(34px, 5vw, 64px);
+      font-weight: 700;
+      letter-spacing: -0.03em;
     }
 
-    .logo {
-      width: 40px;
-      height: 40px;
-      margin: 0 auto 10px;
-      border-radius: 12px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.14), rgba(255,255,255,0.04));
-      border: 1px solid rgba(255,255,255,0.08);
+    .title-line {
+      height: 1px;
+      width: 100%;
+      background: var(--line);
+      margin-bottom: 34px;
+    }
+
+    .stack {
       display: grid;
-      place-items: center;
-      box-shadow: var(--shadow);
-      overflow: hidden;
-    }
-
-    .logo span {
-      font-size: 22px;
-      font-weight: 800;
-      color: white;
-      opacity: 0.95;
-    }
-
-    .brand {
-      margin: 0;
-      font-size: 17px;
-      font-weight: 800;
-      letter-spacing: 0.4px;
+      gap: 26px;
     }
 
     .card {
-      margin-top: 18px;
-      border-radius: 18px;
+      background: linear-gradient(180deg, rgba(26, 34, 67, 0.8), rgba(18, 24, 50, 0.76));
+      border: 1px solid var(--card-border);
+      border-radius: 22px;
+      box-shadow: var(--shadow), inset 0 1px 0 rgba(255,255,255,0.04);
+      padding: 28px 30px 26px;
+      backdrop-filter: blur(10px);
     }
 
-    .btn {
-      width: 100%;
-      border: 0;
-      border-radius: 10px;
-      height: 42px;
-      font-size: 15px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: 0.2s ease;
-    }
-
-    .btn:hover { transform: translateY(-1px); }
-
-    .btn-telegram {
-      width: calc(100% - 68px);
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      background: #51a7ea;
-      color: white;
-      box-shadow: 0 8px 18px rgba(34, 122, 194, 0.35);
-    }
-
-    .icon-circle {
-      width: 18px;
-      height: 18px;
-      border-radius: 50%;
-      display: inline-grid;
-      place-items: center;
-      flex: 0 0 auto;
-    }
-
-    .helper {
-      text-align: center;
-      color: var(--muted);
-      font-size: 12px;
-      margin-top: 14px;
-    }
-
-    .bot-link {
-      margin-top: 8px;
-      text-align: center;
-      font-size: 14px;
-      font-weight: 600;
-      color: #dbe5ff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-    }
-
-    .mini-tg {
-      width: 16px;
-      height: 16px;
-      border-radius: 50%;
-      background: white;
-      display: inline-grid;
-      place-items: center;
+    .card-title {
+      font-size: clamp(24px, 3vw, 36px);
+      font-weight: 700;
+      margin: 0;
     }
 
     .divider {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin: 18px 0 14px;
-      color: var(--muted);
-      font-size: 13px;
-      justify-content: center;
-    }
-
-    .divider::before,
-    .divider::after,
-    .small-divider::before,
-    .small-divider::after {
-      content: "";
       height: 1px;
-      flex: 1;
-      background: rgba(255,255,255,0.12);
+      background: var(--line);
+      margin: 18px 0 24px;
     }
 
-    .social-btn {
-      height: 48px;
-      background: rgba(15, 26, 50, 0.9);
-      border: 1px solid var(--stroke);
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #dce6ff;
-      font-weight: 500;
-      margin-bottom: 16px;
-      cursor: pointer;
+    .plan-name {
+      font-size: clamp(28px, 4vw, 46px);
+      font-weight: 700;
+      margin: 0 0 12px;
     }
 
-    .yandex {
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
-      background: #ff4b22;
-      color: white;
-      display: inline-grid;
-      place-items: center;
-      font-weight: 900;
-      font-family: Arial, sans-serif;
-      margin-right: 10px;
-      font-size: 14px;
-    }
-
-    .small-divider {
-      display: flex;
-      align-items: center;
-      gap: 10px;
+    .subtext {
+      font-size: clamp(18px, 2vw, 28px);
       color: var(--muted);
-      font-size: 13px;
-      margin: 10px 0 14px;
+      margin: 0 0 22px;
     }
 
-    .email-switch {
-      margin: 0 auto;
-      width: fit-content;
-      min-width: 116px;
-      height: 30px;
-      padding: 0 12px;
-      border-radius: 999px;
-      border: 1px solid var(--stroke);
-      background: rgba(9, 18, 37, 0.95);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 7px;
-      color: #d8e2ff;
-      font-size: 13px;
-      box-shadow: var(--shadow);
+    .subtext strong {
+      color: var(--text);
+      font-weight: 600;
     }
 
-    .tabs {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 6px;
-      background: rgba(12, 20, 40, 0.95);
-      border-radius: 12px;
-      padding: 4px;
-      margin-top: 16px;
-      margin-bottom: 16px;
+    .button, .mini-btn, .nav-item {
+      border: 1px solid var(--button-border);
+      background: linear-gradient(180deg, rgba(90, 102, 150, 0.24), rgba(61, 72, 113, 0.2));
+      color: var(--text);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.05), 0 6px 18px rgba(0,0,0,0.18);
     }
 
-    .tab {
-      height: 34px;
-      border: 0;
-      border-radius: 9px;
-      background: transparent;
-      color: #7e89a7;
-      font-size: 15px;
+    .button {
+      width: 100%;
+      min-height: 68px;
+      border-radius: 14px;
+      font-size: clamp(20px, 2.4vw, 24px);
       font-weight: 600;
       cursor: pointer;
     }
 
-    .tab.active {
-      background: linear-gradient(180deg, #2d39ff, #2432db);
-      color: white;
-      box-shadow: 0 8px 18px rgba(41, 58, 255, 0.35);
+    .row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
     }
 
-    .field { margin-bottom: 14px; }
-
-    .label {
-      font-size: 14px;
-      color: #dde7ff;
-      margin-bottom: 8px;
-      display: block;
+    .support-row {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
     }
 
-    .input {
-      width: 100%;
-      height: 50px;
+    .mini-btn {
+      min-height: 58px;
       border-radius: 12px;
-      border: 1px solid rgba(255,255,255,0.06);
-      background: var(--input);
-      color: white;
-      padding: 0 16px;
-      outline: none;
-      font-size: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      font-size: clamp(17px, 2vw, 22px);
+      font-weight: 500;
+      cursor: pointer;
+      padding: 10px 14px;
     }
 
-    .input::placeholder { color: #5b6788; }
+    .mini-btn.primary {
+      background: linear-gradient(180deg, rgba(114, 168, 255, 0.26), rgba(86, 129, 205, 0.24));
+    }
 
-    .submit {
-      margin-top: 10px;
-      background: linear-gradient(180deg, #2d39ff, #2533e6);
-      color: white;
-      font-size: 16px;
+    .balance {
+      font-size: clamp(24px, 3vw, 34px);
+      margin-bottom: 22px;
+      color: var(--muted);
+    }
+
+    .balance strong {
+      color: var(--text);
+      font-size: 1.2em;
       font-weight: 700;
-      box-shadow: 0 12px 24px rgba(41, 58, 255, 0.32);
     }
 
-    .user-box {
-      margin: 14px 0 0;
-      padding: 12px 14px;
-      border-radius: 12px;
-      background: rgba(13, 23, 48, 0.92);
-      border: 1px solid rgba(255,255,255,0.06);
-      font-size: 13px;
-      color: #cfd8f6;
-      line-height: 1.5;
-      display: none;
+    .icon {
+      width: 28px;
+      height: 28px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent);
+      flex: 0 0 auto;
     }
 
-    .notice {
-      margin-top: 14px;
-      padding: 12px 14px;
-      border-radius: 12px;
-      background: rgba(13, 23, 48, 0.92);
-      border: 1px solid rgba(255,255,255,0.06);
-      font-size: 13px;
-      color: #9fb0da;
+    .bottom-nav {
+      position: fixed;
+      left: 50%;
+      bottom: max(20px, env(safe-area-inset-bottom));
+      transform: translateX(-50%);
+      width: min(930px, calc(100% - 32px));
+      background: linear-gradient(180deg, rgba(15, 21, 44, 0.92), rgba(10, 14, 30, 0.94));
+      border: 1px solid rgba(112, 126, 190, 0.22);
+      border-radius: 26px;
+      box-shadow: 0 14px 40px rgba(0, 0, 0, 0.34);
+      backdrop-filter: blur(18px);
+      padding: 18px 18px 10px;
+      z-index: 30;
+    }
+
+    .bottom-nav-inner {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      align-items: stretch;
+      position: relative;
+    }
+
+    .bottom-nav-inner::before,
+    .bottom-nav-inner::after {
+      content: "";
+      position: absolute;
+      top: 8px;
+      bottom: 8px;
+      width: 1px;
+      background: rgba(160, 176, 255, 0.14);
+    }
+
+    .bottom-nav-inner::before { left: 50%; }
+    .bottom-nav-inner::after { display: none; }
+
+    .nav-item {
+      border: 0;
+      background: transparent;
+      box-shadow: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 96px;
+      color: var(--muted);
+      font-size: clamp(16px, 2vw, 20px);
+      font-weight: 500;
+      cursor: pointer;
+      border-radius: 18px;
+    }
+
+    .nav-item.active {
+      color: var(--text);
+    }
+
+    .nav-item svg {
+      width: 40px;
+      height: 40px;
+      opacity: 0.9;
+    }
+
+    .nav-label {
+      line-height: 1;
+    }
+
+    .main-bottom-line {
+      margin-top: 10px;
+      height: 1px;
+      background: rgba(180, 192, 255, 0.18);
+    }
+
+    .tg-badge {
+      margin-top: 18px;
+      padding: 14px 16px;
+      border-radius: 14px;
+      background: rgba(14, 20, 42, 0.8);
+      border: 1px solid rgba(117, 136, 209, 0.18);
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    @media (max-width: 760px) {
+      .app {
+        padding: 26px 14px calc(126px + env(safe-area-inset-bottom));
+      }
+
+      .title {
+        margin: 24px 0 34px;
+        font-size: 30px;
+      }
+
+      .card {
+        padding: 22px 16px 18px;
+        border-radius: 18px;
+      }
+
+      .card-title {
+        font-size: 22px;
+      }
+
+      .divider {
+        margin: 14px 0 18px;
+      }
+
+      .plan-name {
+        font-size: 22px;
+      }
+
+      .subtext,
+      .balance {
+        font-size: 16px;
+      }
+
+      .button {
+        min-height: 54px;
+        font-size: 16px;
+        border-radius: 12px;
+      }
+
+      .mini-btn {
+        min-height: 50px;
+        font-size: 15px;
+        gap: 10px;
+      }
+
+      .row {
+        grid-template-columns: 1fr;
+      }
+
+      .support-row {
+        grid-template-columns: 1fr;
+      }
+
+      .icon {
+        width: 24px;
+        height: 24px;
+      }
+
+      .bottom-nav {
+        width: calc(100% - 16px);
+        border-radius: 22px;
+        padding: 12px 10px 8px;
+      }
+
+      .nav-item {
+        min-height: 82px;
+        font-size: 13px;
+        gap: 8px;
+      }
+
+      .nav-item svg {
+        width: 28px;
+        height: 28px;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="phone">
-    <div class="content">
-      <div class="top">
-        <div class="logo"><span>✦</span></div>
-        <h1 class="brand">STAR 🚀</h1>
-      </div>
+  <div class="app">
+    <h1 class="title">Личный кабинет</h1>
+    <div class="title-line"></div>
 
-      <div class="card">
-        <button class="btn btn-telegram" id="telegramLoginBtn">
-          <span class="icon-circle">
-            <svg viewBox="0 0 24 24" width="18" height="18" fill="none">
-              <path d="M21 4.6L18 19.2c-.23 1.04-.84 1.29-1.7.8l-4.7-3.46-2.27 2.18c-.25.25-.46.46-.94.46l.34-4.83 8.8-7.95c.38-.34-.08-.53-.6-.2L6.05 13.05 1.4 11.6c-1-.32-1.02-1 .22-1.48L19.8 3.1c.84-.32 1.58.2 1.2 1.5Z" fill="white"/>
-            </svg>
-          </span>
-          Войти через Telegram
-        </button>
+    <div class="stack">
+      <section class="card">
+        <h2 class="card-title">Ваш Тариф</h2>
+        <div class="divider"></div>
+        <p class="plan-name">Премиум</p>
+        <p class="subtext">Осталось: <strong>24 дня</strong></p>
+        <button class="button" id="changePlanBtn">Сменить тариф</button>
+      </section>
 
-        <div class="helper">Или откройте бота в приложении</div>
-
-        <div class="bot-link">
-          <span class="mini-tg">
-            <svg viewBox="0 0 24 24" width="11" height="11" fill="none">
-              <path d="M21 4.6L18 19.2c-.23 1.04-.84 1.29-1.7.8l-4.7-3.46-2.27 2.18c-.25.25-.46.46-.94.46l.34-4.83 8.8-7.95c.38-.34-.08-.53-.6-.2L6.05 13.05 1.4 11.6c-1-.32-1.02-1 .22-1.48L19.8 3.1c.84-.32 1.58.2 1.2 1.5Z" fill="#0b142b"/>
-            </svg>
-          </span>
-          @vpnstar
+      <section class="card">
+        <h2 class="card-title">Оплата</h2>
+        <div class="divider"></div>
+        <div class="balance">Баланс: <strong>350 ₽</strong></div>
+        <div class="row">
+          <button class="mini-btn primary" id="topupBtn">
+            <span class="icon">
+              <svg viewBox="0 0 24 24" fill="none">
+                <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"></circle>
+                <path d="M12 8v8M8 12h8" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+              </svg>
+            </span>
+            Пополнить
+          </button>
+          <button class="mini-btn" id="autopayBtn">
+            <span class="icon">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M21 12a9 9 0 0 1-15.36 6.36" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+                <path d="M3 12a9 9 0 0 1 15.36-6.36" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+                <path d="M17 3v4h4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                <path d="M7 21v-4H3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+              </svg>
+            </span>
+            Автоплатеж
+          </button>
+          <button class="mini-btn" id="historyBtn">История</button>
         </div>
+      </section>
 
-        <div class="divider">или</div>
-
-        <button class="social-btn" type="button">
-          <span class="yandex">Я</span>
-          Yandex
-        </button>
-
-        <div class="small-divider">
-          <span class="email-switch">✉ Войти по Email ▾</span>
+      <section class="card">
+        <h2 class="card-title">Поддержка</h2>
+        <div class="divider"></div>
+        <div class="support-row">
+          <button class="mini-btn" id="supportChatBtn">
+            <span class="icon">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M5 18l-1 3 3-1h11a3 3 0 0 0 3-3V6a3 3 0 0 0-3-3H6A3 3 0 0 0 3 6v9a3 3 0 0 0 2 3Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"></path>
+                <path d="M8 9h8M8 13h5" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+              </svg>
+            </span>
+            Чат с техподдержкой
+          </button>
+          <button class="mini-btn" id="faqBtn">
+            <span class="icon">
+              <svg viewBox="0 0 24 24" fill="none">
+                <rect x="4" y="4" width="16" height="16" rx="2" stroke="currentColor" stroke-width="2"></rect>
+                <path d="M8 12l3 3 5-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+              </svg>
+            </span>
+            FAQ / Помощь
+          </button>
         </div>
-
-        <div class="tabs">
-          <button class="tab active" type="button">Вход</button>
-          <button class="tab" type="button">Регистрация</button>
-        </div>
-
-        <div class="field">
-          <label class="label" for="email">Email</label>
-          <input class="input" id="email" type="email" placeholder="you@example.com" />
-        </div>
-
-        <div class="field">
-          <label class="label" for="password">Пароль</label>
-          <input class="input" id="password" type="password" placeholder="••••••••" />
-        </div>
-
-        <button class="btn submit" type="button" id="loginBtn">Вход</button>
-
-        <div class="user-box" id="userBox"></div>
-        <div class="notice" id="notice">Страница готова для Telegram Web App. Если открыть её внутри Telegram, будут доступны данные пользователя и кнопки Telegram.</div>
-      </div>
+      </section>
     </div>
+
+    <div class="tg-badge" id="tgStatus">Режим браузера. Открой страницу через Telegram Mini App, чтобы использовать нативные кнопки и отправку данных в бота.</div>
   </div>
+
+  <nav class="bottom-nav">
+    <div class="bottom-nav-inner">
+      <button class="nav-item active" id="homeNav">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3l9 7h-3v9h-5v-6H11v6H6v-9H3l9-7z"/></svg>
+        <span class="nav-label">Главная</span>
+      </button>
+      <button class="nav-item" id="vpnNav">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M13.5 2.5c4.8 1.2 7.7 6 6.5 10.8-.9 3.4-3.7 5.9-7 6.5L6 22l2.2-6.9c.6-4.2 3.8-7.6 8-8.5h0z" fill="currentColor" opacity=".95"></path><circle cx="14.7" cy="9.3" r="2" fill="#060918"></circle><path d="M8 16l-2.2 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path></svg>
+        <span class="nav-label">VPN</span>
+      </button>
+      <button class="nav-item" id="plansNav">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 6V4a2 2 0 114 0v2h2V4a2 2 0 114 0v2h2a1 1 0 011 1v2H4V7a1 1 0 011-1h2zm13 5l-1.6 8.1A2 2 0 0116.4 21H7.6a2 2 0 01-1.97-1.6L4 11h16z"/></svg>
+        <span class="nav-label">Тарифы</span>
+      </button>
+      <button class="nav-item" id="settingsNav">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.4 13a7.8 7.8 0 000-2l2-1.6-2-3.4-2.4 1a7.9 7.9 0 00-1.7-1L13 2h-4l-.3 2.9a7.9 7.9 0 00-1.7 1l-2.4-1-2 3.4 2 1.6a7.8 7.8 0 000 2l-2 1.6 2 3.4 2.4-1a7.9 7.9 0 001.7 1L9 22h4l.3-2.9a7.9 7.9 0 001.7-1l2.4 1 2-3.4-2-1.6zM11 15.5A3.5 3.5 0 1114.5 12 3.5 3.5 0 0111 15.5z"/></svg>
+        <span class="nav-label">Настройки</span>
+      </button>
+    </div>
+    <div class="main-bottom-line"></div>
+  </nav>
 
   <script>
     const tg = window.Telegram?.WebApp;
-    const loginBtn = document.getElementById('telegramLoginBtn');
-    const formBtn = document.getElementById('loginBtn');
-    const userBox = document.getElementById('userBox');
-    const notice = document.getElementById('notice');
+    const statusBox = document.getElementById('tgStatus');
+
+    function sendAction(action) {
+      if (tg) {
+        tg.sendData(JSON.stringify({ action }));
+        tg.HapticFeedback?.impactOccurred('light');
+      } else {
+        alert('Действие: ' + action + '\n\nЭто демо в браузере. Внутри Telegram Mini App данные уйдут в бота через sendData().');
+      }
+    }
+
+    document.getElementById('changePlanBtn').addEventListener('click', () => sendAction('change_plan'));
+    document.getElementById('topupBtn').addEventListener('click', () => sendAction('topup_balance'));
+    document.getElementById('autopayBtn').addEventListener('click', () => sendAction('toggle_autopay'));
+    document.getElementById('historyBtn').addEventListener('click', () => sendAction('payment_history'));
+    document.getElementById('supportChatBtn').addEventListener('click', () => sendAction('support_chat'));
+    document.getElementById('faqBtn').addEventListener('click', () => sendAction('faq_help'));
+    document.getElementById('homeNav').addEventListener('click', () => sendAction('nav_home'));
+    document.getElementById('vpnNav').addEventListener('click', () => sendAction('nav_vpn'));
+    document.getElementById('plansNav').addEventListener('click', () => sendAction('nav_plans'));
+    document.getElementById('settingsNav').addEventListener('click', () => sendAction('nav_settings'));
 
     if (tg) {
       tg.ready();
       tg.expand();
-      document.body.style.background = tg.themeParams.bg_color || document.body.style.background;
+      tg.MainButton.setText('Открыть VPN');
+      tg.MainButton.show();
+      tg.MainButton.onClick(() => sendAction('open_vpn'));
 
       const user = tg.initDataUnsafe?.user;
-      if (user) {
-        userBox.style.display = 'block';
-        userBox.innerHTML = `
-          <strong>Пользователь Telegram</strong><br>
-          ID: ${user.id}<br>
-          Имя: ${user.first_name || ''} ${user.last_name || ''}<br>
-          Username: ${user.username ? '@' + user.username : 'не указан'}
-        `;
-        notice.textContent = 'Приложение открыто внутри Telegram.';
-      } else {
-        notice.textContent = 'Приложение открыто внутри Telegram, но пользовательские данные не переданы.';
-      }
-
-      tg.MainButton.setText('Отправить данные');
-      tg.MainButton.hide();
-
-      formBtn.addEventListener('click', () => {
-        const email = document.getElementById('email').value.trim();
-        const password = document.getElementById('password').value.trim();
-
-        const payload = {
-          source: 'email_login',
-          email,
-          password,
-          telegramUser: tg.initDataUnsafe?.user || null
-        };
-
-        tg.sendData(JSON.stringify(payload));
-      });
-
-      loginBtn.addEventListener('click', () => {
-        tg.HapticFeedback?.impactOccurred('light');
-        tg.showAlert('Вы уже внутри Telegram Web App. Здесь можно сразу авторизовать пользователя через данные Telegram.');
-      });
-    } else {
-      loginBtn.addEventListener('click', () => {
-        alert('Открой эту страницу внутри Telegram Web App, чтобы использовать вход через Telegram.');
-      });
-
-      formBtn.addEventListener('click', () => {
-        alert('Обычный режим браузера: тут можно подключить свой backend для email-входа.');
-      });
+      statusBox.textContent = user
+        ? `Открыто в Telegram Mini App. Пользователь: ${user.first_name || ''}${user.username ? ' (@' + user.username + ')' : ''}`
+        : 'Открыто в Telegram Mini App.';
     }
   </script>
 </body>
